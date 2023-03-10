@@ -1,0 +1,48 @@
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding:.8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    border:.2rem solid var(--black);
+    color: #216B91;
+    cursor: pointer;
+    background: none;
+}
+
+.btn:hover{
+    background: var(--orange);
+    color:#031728;
+}
+
+.home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../../assets/img/nutricionbg.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 17rem;
+    padding-bottom: 10rem;
+}
+
+.home .content{
+    text-align: center;
+    width:60rem;
+}
+
+.home .content h3{
+    color: black;
+    font-size: 3rem;
+}
+
+.home .content h3 span{
+    color: #216B91;
+}
+
+.home .content p{
+    color:#666;
+    font-size: 1.7rem;
+    padding:1rem 0;
+    line-height: 1.8;
+}
