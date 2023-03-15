@@ -8,7 +8,7 @@ import Stats from '../components/Stats';
 const Home = () => {
   return (
     <>
-    <Navbar/>
+      <Navbar/>
       <Hero/>
       <Modulos/>
       <Stats/>

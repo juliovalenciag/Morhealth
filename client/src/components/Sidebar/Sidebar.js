@@ -62,9 +62,17 @@ const Sidebar = () => {
             </>
             <SLogo>
                 <img src={logoSVG} alt="logo" />
+                
             </SLogo>
 
-            <p>{currentUser?.username}</p>
+            <SLogo>
+
+            {sidebarOpen && (
+                <p>{currentUser?.username} </p>
+                )}
+            
+            </SLogo>
+
             <SSearch
                 onClick={searchClickHandler}
                 style={!sidebarOpen ? { width: `fit-content` } : {}}

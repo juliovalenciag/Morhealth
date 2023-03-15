@@ -4,6 +4,8 @@ import { v } from "../../styles/variables";
 
 export const SLayout = styled.div`
     display: flex;
+    z-index: 1;
+    flex-grow: 1;
 `;
 
 export const SMain = styled.main`
@@ -13,4 +15,5 @@ export const SMain = styled.main`
     h1 {
         font-size: 14px;
     }
+
 `;
