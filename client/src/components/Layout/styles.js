@@ -9,11 +9,12 @@ export const SLayout = styled.div`
 `;
 
 export const SMain = styled.main`
-  
-    margin-left: 100px;
-    width: calc(100% - 100px);
-    h1 {
-        font-size: 14px;
-    }
-
+    position: fixed;
+    left: ${({ isOpen, sidebarWidth }) => (isOpen ? `calc(${sidebarWidth} + 150px)` : '105px')};
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0px; // Ajusta el padding según tus necesidades
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out;
 `;

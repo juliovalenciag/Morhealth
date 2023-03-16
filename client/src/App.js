@@ -5,6 +5,7 @@ import Home from './pages/Home';
 
 import Principal from "./pages/Principal";
 import Layout from './components/Layout/Layout'
+import Sidebar from "./components/Sidebar/Sidebar";
 
 import { GlobalStyle } from "./styles/globalStyles";
 import { darkTheme, lightTheme } from "./styles/theme";
@@ -20,6 +21,7 @@ import Searched from "./nutricion/Searched";
 import Recipe from "./nutricion/Recipe";
 import Ejercicios from "./pages/Ejercicios";
 import ExerciseDetail from "./fitness/ExerciseDetail";
+import FitnessHome from "./pages/FitnessHome";
 
 export const ThemeContext = React.createContext(null);
 
@@ -36,6 +38,7 @@ const LayoutInicio = () => {
 const LayoutPrincipal = () => {
   return (
     <>
+      
       <Layout>
         <Outlet />
       </Layout>
@@ -94,7 +97,7 @@ const router = createBrowserRouter([
 
       {
         path: '/morshealth/ejercicios',
-        element: <Ejercicios/>
+        element: <FitnessHome/>
       },
       {
         path: '/morshealth/ejercicios/:id',

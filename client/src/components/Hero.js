@@ -27,7 +27,7 @@ const HeroContainer = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 0 1rem;
+    padding: 0;
     position: relative;
     margin-top: -80px;
     color: #fff;
