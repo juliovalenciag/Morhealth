@@ -1,3 +1,3 @@
-import logo from "./Morhealth.png";
+import logo from "./logo/mhlogo.png";
 
 export const logoSVG = logo;

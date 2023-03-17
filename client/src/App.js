@@ -22,6 +22,9 @@ import Recipe from "./nutricion/Recipe";
 import Ejercicios from "./pages/Ejercicios";
 import ExerciseDetail from "./fitness/ExerciseDetail";
 import FitnessHome from "./pages/FitnessHome";
+import NutricionHome from "./pages/NutricionHome";
+import Rutinas from "./fitness/Rutinas";
+import BlogHome from "./pages/BlogHome";
 
 export const ThemeContext = React.createContext(null);
 
@@ -72,7 +75,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/morshealth/blog',
-        element: <Blog/>
+        element: <BlogHome/>
       },
       {
         path: '/morshealth/blog/publicar',
@@ -100,6 +103,10 @@ const router = createBrowserRouter([
         element: <FitnessHome/>
       },
       {
+        path: '/morshealth/ejercicios/rutinas',
+        element: <Rutinas/>
+      },
+      {
         path: '/morshealth/ejercicios/:id',
         element: <ExerciseDetail/>
       },
@@ -113,7 +120,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/morshealth/nutricion',
-        element: <Nutricion/>
+        element: <NutricionHome/>
       },
       {
         path: '/morshealth/nutricion/recipe/:name',
