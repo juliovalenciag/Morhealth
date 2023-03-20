@@ -4,7 +4,7 @@ import { v } from "../../styles/variables";
 
 export const SLayout = styled.div`
     display: flex;
-    z-index: 1;
+    z-index: 9;
     flex-grow: 1;
 `;
 

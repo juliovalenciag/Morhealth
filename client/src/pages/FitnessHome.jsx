@@ -10,13 +10,11 @@ const FitnessHome = () => {
   return (
     <GridContainer>
       <FullHeightGridItem>
-        <ImageWrapper>
-          <img src="https://images.unsplash.com/photo-1609377375724-8fadc82cd50e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" width='50px' alt="Descripción de la imagen" />
-        </ImageWrapper>
+        Challenge
       </FullHeightGridItem>
       <Link to='rutinas'>
         <GridItem>
-
+          Rutinitas
         </GridItem>
       </Link>
       <GridItem>Blog</GridItem>
