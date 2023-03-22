@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide';
 // Default theme
 import '@splidejs/react-splide/css';
 
@@ -13,8 +13,8 @@ import '@splidejs/react-splide/css/sea-green';
 // or only core styles
 import '@splidejs/react-splide/css/core';
 
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {FreeMode} from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper';
 import "swiper/css";
 import "swiper/css/free-mode";
 
@@ -28,13 +28,14 @@ const NutricionHome = () => {
 
   const getPopular = async () => {
 
+
     const check = localStorage.getItem('popular');
 
     if (check) {
       setPopular(JSON.parse(check));
     } else {
 
-      const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=4b6414652eca4d17a1808f6504cc229d&number=9`);
+      const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=4b6414652eca4d17a1808f6504cc229d&number=8`);
       const data = await api.json();
       console.log(data);
 
@@ -48,7 +49,7 @@ const NutricionHome = () => {
       <FullHeightGridItem>
         <GridItemImage />
       </FullHeightGridItem>
-      <Link to='rutinas'>
+      <Link to='/morshealth/ejercicios/ejercicio'>
         <GridItem>
           Dieta de hoy
         </GridItem>
@@ -56,61 +57,58 @@ const NutricionHome = () => {
       <GridItem>Blog</GridItem>
 
       <SubFullWidthGridItem>
-        <Swiper
-          freeMode={true}
-          grabCursor={true}
-          modules={[FreeMode]}
-          className="mySwiper"
-          slidesPerView={5}
-          spaceBetween={30}
-        >
-         {popular.map((recipe) => {
-              return (
-                <SwiperSlide key={recipe.id}>
-                  <div>
-                    <Link to={"/morshealth/nutricion/recipe/" + recipe.id}>
-                      <p>{recipe.title}</p>
-                      <img src={recipe.image} alt={recipe.title} />
-                      
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-        </Swiper>
+
+
       </SubFullWidthGridItem>
 
 
       <SubFullWidthGridItem>
 
-        <Wrapper>
-          <Splide 
-            options={{
-              perPage: 4,
-              arrows: false,
-              pagination: false,
-              drag: 'free',
-              autoHeight: 'true',
-              autoWidth: 'true',
-              gap: '5rem',
-            }}>
-            {popular.map((recipe) => {
-              return (
-                <SplideSlide key={recipe.id}>
-                  <Card>
-                    <Link to={"/morshealth/nutricion/recipe/" + recipe.id}>
-                      <p>{recipe.title}</p>
-                      <img src={recipe.image} alt={recipe.title} />
-                      <Gradient />
-                    </Link>
-                  </Card>
-                </SplideSlide>
-              );
-            })}
 
-          </Splide>
+        <Splide
+          options={{
+            type: 'loop',
+            perPage: 1,
+            arrows: true,
+            pagination: true,
+            rewind: true,
+            drag: true,
+            gap: '1rem',
+            padding: { left: 0, right: 0, top: 10, bottom: 20 },
+            autoWidth: true,
+            autoHeight: true,
+            focus: 'center',
+            breakpoints: {
+              640: {
+                perPage: 1,
+                gap: 0,
+              },
+              1000: {
+                perPage: 2,
+              },
+              1900: {
+                perPage: 4,
+              },
+            },
+          }}
+        >
+          {popular.map((recipe) => {
+            return (
+              <SplideSlide key={recipe.id}>
+                <Card>
+                  <Link to={"/morshealth/nutricion/recipe/" + recipe.id}>
+                    <img src={recipe.image} alt={recipe.title} />
+                  </Link>
+                </Card>
+              </SplideSlide>
+            );
+          })}
+        </Splide>
 
-        </Wrapper>
+
+
+
+
 
       </SubFullWidthGridItem>
 
@@ -189,6 +187,8 @@ const SubFullWidthGridItem = styled(GridItem)`
   grid-column: span 2;
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  position: relative;
 
   @media (max-width: 1024px) {
     grid-column: span 1;
@@ -202,7 +202,11 @@ const SubFullWidthGridItem = styled(GridItem)`
 const Wrapper = styled.div`
     padding: 0;
     z-index: 5;
+    display: flex;
+    height: 20rem;
     width: fit-content;
+    justify-content: center;
+    align-content: center;
     h2{
         
         align-text: center;
@@ -214,37 +218,23 @@ const Wrapper = styled.div`
     p{
         margin-bottom: 1rem;
     }
+    
 `;
 
 const Card = styled.div`
-    border-radius: .5rem;
-    position: relative;
+  height: 15rem;
+  width: 10rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+
+  img {
+    border-radius: 0.5rem;
+    position: absolute;
+    left: 0;
+    width: 100%;
     height: 100%;
-
-    img {
-        border-radius: .5rem;
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-
-    }
-    p{
-        position: absolute;
-        left: 50%;
-        bottom: 0%;
-        transform: translate(-50%, 0%);
-        color: white;
-        width: 100%;
-        text-align: center;
-        font-weight: 600;
-        font-size: 1rem;
-        height: 40%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    object-fit: cover;
+  }
 `;
 
 const Gradient = styled.div`

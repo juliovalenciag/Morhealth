@@ -72,7 +72,7 @@ const GridContainer = styled.div`
 `;
 
 const GridItem = styled.div`
-  background-color: #60a5fa;
+  background-color: #8AB1A4;
   color: #ffffff;
   border-radius: 1rem;
   padding: 0;
@@ -113,7 +113,7 @@ const InnerGridContainer = styled.div`
 `;
 
 const InnerGridItem = styled.div`
-  background-color: #ff7f50;
+  background-color: #3C737B;
   color: #ffffff;
   border-radius: 1rem;
   padding: 1rem;
@@ -131,7 +131,7 @@ const InnerGridItem = styled.div`
 `;
 
 const InnerGridItemTitle = styled.div`
-  background-color: #ff7f50;
+  background-color: #1d363a;
   color: #ffffff;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
@@ -144,7 +144,7 @@ const InnerGridItemTitle = styled.div`
 `;
 
 const InnerGridItemMore = styled.div`
-  background-color: #ff7f50;
+  background-color: #1d363a;
   color: #ffffff;
   border-radius: 1rem;
   display: flex;

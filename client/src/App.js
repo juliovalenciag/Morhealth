@@ -19,12 +19,12 @@ import Write from "./Blog/Write";
 import Nutricion from "./pages/Nutricion";
 import Searched from "./nutricion/Searched";
 import Recipe from "./nutricion/Recipe";
-import Ejercicios from "./pages/Ejercicios";
-import ExerciseDetail from "./fitness/ExerciseDetail";
 import FitnessHome from "./pages/FitnessHome";
 import NutricionHome from "./pages/NutricionHome";
 import Rutinas from "./fitness/Rutinas";
 import BlogHome from "./pages/BlogHome";
+import Exercises from "./fitness/fitnesscomponents/Exercise";
+import ExerciseDetail from "./fitness/ExerciseDetail";
 
 export const ThemeContext = React.createContext(null);
 
@@ -103,12 +103,28 @@ const router = createBrowserRouter([
         element: <FitnessHome/>
       },
       {
+        path: '/morshealth/ejercicios/ejercicio',
+        element: <Exercises/>
+      },
+      {
+        path: '/morshealth/ejercicios/ejercicio/:id',
+        element: <ExerciseDetail/>
+      },
+      {
         path: '/morshealth/ejercicios/rutinas',
         element: <Rutinas/>
       },
       {
+        path: '/morshealth/ejercicios/:bodyPart',
+        element: <Rutinas/>
+      },
+      {
+        path: '/morshealth/ejercicios/:bodyPartId',
+        element: <Rutinas/>
+      },
+      {
         path: '/morshealth/ejercicios/:id',
-        element: <ExerciseDetail/>
+        element: <Rutinas/>
       },
       {
         path: '/morshealth/nutricion/cuisine/:type',
