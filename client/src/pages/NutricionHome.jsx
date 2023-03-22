@@ -209,7 +209,6 @@ const Wrapper = styled.div`
     align-content: center;
     h2{
         
-        align-text: center;
         display:flex;
         justify-content: center;
         align-items: center;

@@ -177,7 +177,6 @@ const SubFullWidthGridItem = styled(GridItem)`
   background-color: #1d363a;
 
   h1{
-    align-text: left;
     font-size: 2rem;
     top: 0;
     left: 0;
