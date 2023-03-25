@@ -43,4 +43,17 @@ export const darkTheme = {
     primary: "rgb(52, 131, 235)",
 };
 
-estoy buscando crear un modulo donde haya rutinas, donde haya 3 niveles, basico, intermedio y avanzado y cada uno de estos 3, tengan tanto de "full body", "abs", "legs", "arms", etc. Cuando el usuario cliquee por ejemplo, arms, le apareza una rutina de ejercicios todos relacionados a brazos y que cuando de comenzar a un boton, le aparezca la cantidad de repeticiones que debe hacer, todo esto cronometrado y despues pase al siguiente ejercicio de brazos. Todo esto lo busco hacer en una aplicacion web, con react. Como puedo hacerlo?
+
+Paleta de colores que creo que se va a quedar porque leyva no ha cambiado nada:
+
+#031728
+
+#223159
+
+#216B91
+
+#4B90C0
+
+#D9D9D9
+
+#F0F2F3

@@ -1,16 +1,16 @@
 export const lightTheme = {
-    bg: "rgb(251,249,244)",
-    bgAlpha: "rgba(255, 252, 245, 1)",
+    bg: "#F0F2F3", //mas claro de todos
+    bgAlpha: "#D9D9D9",
     bg2: "rgb(245,245,245)",
     bg3: "rgb(230,230,230)", //gris claro
-    text: "rgb(29,54,58,1)", //gris oscuro
-    primary: "rgb(105, 159, 155)", //aqua (como color verde)
+    text: "#031728", //gris oscuro
+    primary: "#216B91", //aqua (como color verde)
 };
 export const darkTheme = {
-    bg: "rgba(29, 54, 58, 1)",
+    bg: "#223159",
     bgAlpha: "rgba(0,0,0,.3)",
     bg2: "rgb(30,30,30)",
     bg3: "rgb(50,50,50)",
     text: "rgba(230, 230, 230, 1)",
-    primary: "rgb(138, 177, 164,1)",
+    primary: "#4B90C0",
 };

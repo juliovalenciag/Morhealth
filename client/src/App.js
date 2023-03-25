@@ -21,12 +21,25 @@ import Searched from "./nutricion/Searched";
 import Recipe from "./nutricion/Recipe";
 import FitnessHome from "./pages/FitnessHome";
 import NutricionHome from "./pages/NutricionHome";
-import Rutinas from "./fitness/Rutinas";
 import BlogHome from "./pages/BlogHome";
-import Ejercicios from "./fitness/Ejercicios";
-import ListaEjercicios from "./fitness/ListaEjercicios";
+
+import Fitness from './fitness/Fitness'
+import PruebitaEjercicios from "./fitness/PruebitaEjercicios";
+import PruebitaRutinas from "./fitness/PruebitaRutinas";
 
 
+import ExerciseList from './fitness/exercises/ExercisesList'
+import ExerciseDetails from './fitness/exercises/ExerciseDetails'
+import WorkotsDetail from './fitness/workouts/WorkoutDetails'
+import WorkoutsList from './fitness/workouts/WorkoutsList'
+import CreateWorkout from './fitness/workouts/CreateWorkout'
+import CreateNutritionPlan from './fitness/nutrition/CreateNutritionPlan'
+import NutritionPlanDetails from './fitness/nutrition/NutritionPlanDetails'
+import NutritionPlansList from './fitness/nutrition/NutritionPlansList'
+import Recetas from "./nutricion/Recetas";
+import MorshealthHome from "./pages/MorshealthHome";
+import RecipeSearch from "./nutricion/nutricionComponents/RecipeSearch";
+import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
 
 export const ThemeContext = React.createContext(null);
 
@@ -51,6 +64,7 @@ const LayoutPrincipal = () => {
   )
 }
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -73,8 +87,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/morshealth',
-        element: <Principal/>
+        element: <MorshealthHome/>
       },
+
+
       {
         path: '/morshealth/blog',
         element: <BlogHome/>
@@ -100,37 +116,86 @@ const router = createBrowserRouter([
         element: <Blog/>
       },
 
+
+
+      {
+        path: '/morshealth/fitness/exercise',
+        element: <ExerciseList/>
+      },
+      {
+        path: '/morshealth/fitness/exercise/:id',
+        element: <ExerciseDetails/>
+      },
+      {
+        path: '/morshealth/fitness/workouts',
+        element: <WorkoutsList/>
+      },
+      {
+        path: '/morshealth/fitness/workouts/:id',
+        element: <WorkotsDetail/>
+      },
+      {
+        path: '/morshealth/fitness/workouts/create',
+        element: <CreateWorkout/>
+      },
+      {
+        path: '/morshealth/fitness/nutrition',
+        element: <NutritionPlansList/>
+      },
+      {
+        path: '/morshealth/fitness/nutrition/:id',
+        element: <NutritionPlanDetails/>
+      },
+      {
+        path: '/morshealth/fitness/nutrition/create',
+        element: <CreateNutritionPlan/>
+      },
+
+
+
+
       {
         path: '/morshealth/ejercicios',
         element: <FitnessHome/>
       },
       {
         path: '/morshealth/ejercicios/ejercicio',
-        element: <Ejercicios/>
+        element: <Fitness/>
+      },
+      {
+        path: '/morshealth/ejercicios/ejercicio/rutinas',
+        element: <PruebitaRutinas/>
       },
       {
         path: '/morshealth/ejercicios/ejercicio/lista-ejercicios',
-        element: <ListaEjercicios/>
+        element: <PruebitaEjercicios/>
       },
       {
         path: '/morshealth/ejercicios/rutinas',
-        element: <Rutinas/>
+        element: <PruebitaRutinas/>
       },
       {
         path: '/morshealth/ejercicios/:bodyPart',
-        element: <Rutinas/>
+        element: <PruebitaRutinas/>
       },
       {
         path: '/morshealth/ejercicios/:bodyPartId',
-        element: <Rutinas/>
+        element: <PruebitaRutinas/>
       },
       {
         path: '/morshealth/ejercicios/:id',
-        element: <Rutinas/>
+        element: <PruebitaRutinas/>
       },
+
+
+
       {
         path: '/morshealth/nutricion/cuisine/:type',
         element: <Nutricion/>
+      },
+      {
+        path: '/morshealth/nutricion/recetas',
+        element: <Recetas/>
       },
       {
         path: '/morshealth/nutricion/searched/:search',
@@ -144,6 +209,22 @@ const router = createBrowserRouter([
         path: '/morshealth/nutricion/recipe/:name',
         element: <Recipe/>
       },
+      {
+        path: '/morshealth/nutricion/recipe/:name',
+        element: <Recipe/>
+      },
+
+
+      {
+        path: '/morshealth/nutricion/recetilla',
+        element: <RecipeSearch/>
+      },
+      {
+        path: '/morshealth/nutricion/recetilla/:id',
+        element: <RecipeDetails/>
+      },
+
+
     ]
   },
   {

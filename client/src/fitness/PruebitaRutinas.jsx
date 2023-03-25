@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Rutinas = () => {
+const PruebitaRutinas = () => {
   return (
     <GridContainer>
       <GridItem>
@@ -158,4 +158,4 @@ const InnerGridItemMore = styled.div`
 `;
 
 
-export default Rutinas
+export default PruebitaRutinas
