@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { blog } from "../../assets/data/data";
 import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -9,17 +9,20 @@ const Card = () => {
 
   const [posts, setPosts] = useState([]);
 
+  const cat = useLocation().search
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts`);
+        const res = await axios.get(`/posts${cat}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, []);
+  }, [cat]);
   
   
   {/*

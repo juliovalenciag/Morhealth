@@ -53,8 +53,8 @@ const Category = () => {
         <div className='content'>
           <Slider {...settings}>
             {category.map((item) => (
-              <div className='boxs'>
-                <div className='box' key={item.id}>
+              <div className='boxs' key={item.id}>
+                <div className='box' >
                   <img src={item.cover} alt='cover' />
                   <div className='overlay'>
                     <h4>{item.category}</h4>

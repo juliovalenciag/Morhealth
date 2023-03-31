@@ -10,6 +10,8 @@ export const DetailsPages = () => {
   const { id } = useParams();
   const [blogs, setBlogs] = useState(null);
 
+  const [post, setPost] = useState({});
+
   useEffect(() => {
     let blogs = blog.find((blogs) => blogs.id === parseInt(id));
     if (blogs) {
