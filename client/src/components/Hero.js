@@ -13,7 +13,7 @@ function Hero() {
         <HeroContent>
             <HeroItems>
                 <HeroH1>Morhealth</HeroH1>
-                <HeroP>Prioriza tu salud</HeroP>
+                <HeroP>Tu compañero de salud al alcance de tus manos</HeroP>
                 
             </HeroItems>
         </HeroContent>
@@ -56,7 +56,7 @@ const HeroBg = styled.div`
 const VideoBg = styled.video`
     width: 100%;
     height: 100%;
-    -0-object-fit: cover;
+    -o-object-fit: cover;
     object-fit: cover;
 `;
 const HeroContent = styled.div`
@@ -85,7 +85,7 @@ const HeroH1 = styled.h1`
     padding: 0 1rem;
 `;
 const HeroP = styled.p`
-    font-size: clamp(1rem, 3vw, 3rem);
+    font-size: clamp(.5rem, 2vw, 2rem);
     margin-bottom: 2rem;
 `;
 export default Hero

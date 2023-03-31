@@ -1,6 +1,6 @@
 export const lightTheme = {
-    bg: "#F0F2F3", //mas claro de todos
-    bgAlpha: "#D9D9D9",
+    bg: "#d9d9d9", //mas claro de todos
+    bgAlpha: "#F0F2F3",
     bg2: "rgb(245,245,245)",
     bg3: "rgb(230,230,230)", //gris claro
     text: "#031728", //gris oscuro

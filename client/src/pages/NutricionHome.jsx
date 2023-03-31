@@ -49,7 +49,7 @@ const NutricionHome = () => {
       <FullHeightGridItem>
         <GridItemImage />
       </FullHeightGridItem>
-      <Link to='/morshealth/ejercicios/ejercicio'>
+      <Link to='/morhealth/ejercicios/ejercicio'>
         <GridItem>
           Dieta de hoy
         </GridItem>
@@ -96,7 +96,7 @@ const NutricionHome = () => {
             return (
               <SplideSlide key={recipe.id}>
                 <Card>
-                  <Link to={"/morshealth/nutricion/recipe/" + recipe.id}>
+                  <Link to={"/morhealth/nutricion/recipe/" + recipe.id}>
                     <img src={recipe.image} alt={recipe.title} />
                   </Link>
                 </Card>

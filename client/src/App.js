@@ -40,15 +40,18 @@ import Recetas from "./nutricion/Recetas";
 import MorshealthHome from "./pages/MorshealthHome";
 import RecipeSearch from "./nutricion/nutricionComponents/RecipeSearch";
 import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
+import LoginPage from "./pages/Sesion/LoginPage";
+import { DetailsPages } from "./Blog/details/DetailsPages";
+import { Create } from "./Blog/components/create/Create";
 
 export const ThemeContext = React.createContext(null);
 
 const LayoutInicio = () => {
   return (
     <>
-    
+
       <Outlet />
-     
+
     </>
   )
 }
@@ -56,7 +59,7 @@ const LayoutInicio = () => {
 const LayoutPrincipal = () => {
   return (
     <>
-      
+
       <Layout>
         <Outlet />
       </Layout>
@@ -68,160 +71,157 @@ const LayoutPrincipal = () => {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutInicio/>,
+    element: <LayoutInicio />,
     children: [
       {
         path: '/',
-        element: <Home/>
+        element: <Home />
       },
-      
+
     ]
   },
+  
   {
-    path: '/registro',
-    element: <Register/>
-  },
-  {
-    path: '/morshealth',
-    element: <LayoutPrincipal/>,
+    path: '/morhealth',
+    element: <LayoutPrincipal />,
     children: [
       {
-        path: '/morshealth',
-        element: <MorshealthHome/>
+        path: '/morhealth',
+        element: <MorshealthHome />
       },
 
 
       {
-        path: '/morshealth/blog',
+        path: '/morhealth/blog',
         element: <BlogHome/>
       },
       {
-        path: '/morshealth/blog/publicar',
-        element: <Write/>
+        path: '/morhealth/blog/post/:id',
+        element: <DetailsPages/>
       },
       {
-        path: '/morshealth/blog/post/:id',
-        element: <Single/>
+        path: '/morhealth/blog/write',
+        element: <Write />
       },
       {
-        path: '/morshealth/blog/salud',
-        element: <Blog/>
+        path: '/morhealth/blog/salud',
+        element: <Blog />
       },
       {
-        path: '/morshealth/blog/nutricion',
-        element: <Blog/>
+        path: '/morhealth/blog/nutricion',
+        element: <Blog />
       },
       {
-        path: '/morshealth/blog/ejercicios',
-        element: <Blog/>
-      },
-
-
-
-      {
-        path: '/morshealth/fitness/exercise',
-        element: <ExerciseList/>
-      },
-      {
-        path: '/morshealth/fitness/exercise/:id',
-        element: <ExerciseDetails/>
-      },
-      {
-        path: '/morshealth/fitness/workouts',
-        element: <WorkoutsList/>
-      },
-      {
-        path: '/morshealth/fitness/workouts/:id',
-        element: <WorkotsDetail/>
-      },
-      {
-        path: '/morshealth/fitness/workouts/create',
-        element: <CreateWorkout/>
-      },
-      {
-        path: '/morshealth/fitness/nutrition',
-        element: <NutritionPlansList/>
-      },
-      {
-        path: '/morshealth/fitness/nutrition/:id',
-        element: <NutritionPlanDetails/>
-      },
-      {
-        path: '/morshealth/fitness/nutrition/create',
-        element: <CreateNutritionPlan/>
-      },
-
-
-
-
-      {
-        path: '/morshealth/ejercicios',
-        element: <FitnessHome/>
-      },
-      {
-        path: '/morshealth/ejercicios/ejercicio',
-        element: <Fitness/>
-      },
-      {
-        path: '/morshealth/ejercicios/ejercicio/rutinas',
-        element: <PruebitaRutinas/>
-      },
-      {
-        path: '/morshealth/ejercicios/ejercicio/lista-ejercicios',
-        element: <PruebitaEjercicios/>
-      },
-      {
-        path: '/morshealth/ejercicios/rutinas',
-        element: <PruebitaRutinas/>
-      },
-      {
-        path: '/morshealth/ejercicios/:bodyPart',
-        element: <PruebitaRutinas/>
-      },
-      {
-        path: '/morshealth/ejercicios/:bodyPartId',
-        element: <PruebitaRutinas/>
-      },
-      {
-        path: '/morshealth/ejercicios/:id',
-        element: <PruebitaRutinas/>
+        path: '/morhealth/blog/ejercicios',
+        element: <Blog />
       },
 
 
 
       {
-        path: '/morshealth/nutricion/cuisine/:type',
-        element: <Nutricion/>
+        path: '/morhealth/fitness/exercise',
+        element: <ExerciseList />
       },
       {
-        path: '/morshealth/nutricion/recetas',
-        element: <Recetas/>
+        path: '/morhealth/fitness/exercise/:id',
+        element: <ExerciseDetails />
       },
       {
-        path: '/morshealth/nutricion/searched/:search',
-        element: <Searched/>
+        path: '/morhealth/fitness/workouts',
+        element: <WorkoutsList />
       },
       {
-        path: '/morshealth/nutricion',
-        element: <NutricionHome/>
+        path: '/morhealth/fitness/workouts/:id',
+        element: <WorkotsDetail />
       },
       {
-        path: '/morshealth/nutricion/recipe/:name',
-        element: <Recipe/>
+        path: '/morhealth/fitness/workouts/create',
+        element: <CreateWorkout />
       },
       {
-        path: '/morshealth/nutricion/recipe/:name',
-        element: <Recipe/>
+        path: '/morhealth/fitness/nutrition',
+        element: <NutritionPlansList />
+      },
+      {
+        path: '/morhealth/fitness/nutrition/:id',
+        element: <NutritionPlanDetails />
+      },
+      {
+        path: '/morhealth/fitness/nutrition/create',
+        element: <CreateNutritionPlan />
+      },
+
+
+
+
+      {
+        path: '/morhealth/ejercicios',
+        element: <FitnessHome />
+      },
+      {
+        path: '/morhealth/ejercicios/ejercicio',
+        element: <Fitness />
+      },
+      {
+        path: '/morhealth/ejercicios/ejercicio/rutinas',
+        element: <PruebitaRutinas />
+      },
+      {
+        path: '/morhealth/ejercicios/ejercicio/lista-ejercicios',
+        element: <PruebitaEjercicios />
+      },
+      {
+        path: '/morhealth/ejercicios/rutinas',
+        element: <PruebitaRutinas />
+      },
+      {
+        path: '/morhealth/ejercicios/:bodyPart',
+        element: <PruebitaRutinas />
+      },
+      {
+        path: '/morhealth/ejercicios/:bodyPartId',
+        element: <PruebitaRutinas />
+      },
+      {
+        path: '/morhealth/ejercicios/:id',
+        element: <PruebitaRutinas />
+      },
+
+
+
+      {
+        path: '/morhealth/nutricion/cuisine/:type',
+        element: <Nutricion />
+      },
+      {
+        path: '/morhealth/nutricion/recetas',
+        element: <Recetas />
+      },
+      {
+        path: '/morhealth/nutricion/searched/:search',
+        element: <Searched />
+      },
+      {
+        path: '/morhealth/nutricion',
+        element: <NutricionHome />
+      },
+      {
+        path: '/morhealth/nutricion/recipe/:name',
+        element: <Recipe />
+      },
+      {
+        path: '/morhealth/nutricion/recipe/:name',
+        element: <Recipe />
       },
 
 
       {
-        path: '/morshealth/nutricion/recetilla',
-        element: <RecipeSearch/>
+        path: '/morhealth/nutricion/recetilla',
+        element: <RecipeSearch />
       },
       {
-        path: '/morshealth/nutricion/recetilla/:id',
-        element: <RecipeDetails/>
+        path: '/morhealth/nutricion/recetilla/:id',
+        element: <RecipeDetails />
       },
 
 
@@ -229,7 +229,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login/>
+    element: <LoginPage />
   },
 ])
 
@@ -238,19 +238,19 @@ const router = createBrowserRouter([
 function App() {
 
   const [theme, setTheme] = useState("light");
-    const themeStyle = theme === "light" ? lightTheme : darkTheme;
+  const themeStyle = theme === "light" ? lightTheme : darkTheme;
 
   return (
 
     <ThemeContext.Provider value={{ setTheme, theme }}>
-            <ThemeProvider theme={themeStyle}>
-                <GlobalStyle />
-    <div className='App'>
-      <div className="container">
-        <RouterProvider router={router} />
-      </div>
-    </div>
-    </ThemeProvider>
+      <ThemeProvider theme={themeStyle}>
+        <GlobalStyle />
+        <div className='App'>
+          <div className="contenedorGeneral">
+            <RouterProvider router={router} />
+          </div>
+        </div>
+      </ThemeProvider>
     </ThemeContext.Provider>
 
   );

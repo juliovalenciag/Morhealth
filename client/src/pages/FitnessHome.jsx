@@ -59,7 +59,7 @@ const FitnessHome = () => {
           Rutinitas
         </GridItem>
       </Link>
-      <Link to='/morshealth/ejercicios/ejercicio'>
+      <Link to='/morhealth/ejercicios/ejercicio'>
         <GridItem>
           Blog
         </GridItem>
@@ -73,7 +73,7 @@ const FitnessHome = () => {
         <BodyGridContainer>
           {bodyParts.map((part, index) => (
             <BodyGridItem key={index}>
-              <Link to={`/morshealth/ejercicios/${part}`}>
+              <Link to={`/morhealth/ejercicios/${part}`}>
                 <p>{part}</p>
                 <img src={bodyPartImages[part]} alt={part} />
               </Link>

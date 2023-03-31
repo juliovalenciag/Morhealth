@@ -18,7 +18,7 @@ const Register = () => {
         setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
     }
 
-    const handleSubmit = async e =>{
+    const handleSubmitR = async e =>{
         e.preventDefault()
         try{
         await axios.post("/auth/registro", inputs)
@@ -34,7 +34,7 @@ const Register = () => {
             <input required type="text" placeholder='username' name='username' onChange={handleChange}/>
             <input required type="email" placeholder='email' name='email' onChange={handleChange}/>
             <input required type="password" placeholder='password' name='password' onChange={handleChange}/>
-            <button onClick={handleSubmit}>Registrar</button>
+            <button onClick={handleSubmitR}>Registrar</button>
 
             {err && <p>{err}</p>}
             <span>Ya tienes cuenta? <Link to='/login'>Inicia Sesión</Link></span>

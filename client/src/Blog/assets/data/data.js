@@ -1,87 +1,58 @@
 export const nav = [
   {
     id: 1,
-    text: "home",
-    url: "/",
+    text: "General",
+    url: "/morhealth/blog",
   },
   {
     id: 2,
-    text: "about",
-    url: "/about",
+    text: "Salud",
+    url: "/morhealth/blog/?cat=salud",
   },
   {
     id: 3,
-    text: "pages",
-    url: "/pages",
+    text: "Fitness",
+    url: "/morhealth/blog/?cat=fitness",
   },
   {
     id: 4,
-    text: "blog",
-    url: "/blog",
+    text: "Nutricion",
+    url: "/morhealth/blog/?cat=nutricion",
   },
   {
     id: 5,
-    text: "contact",
-    url: "/contact",
+    text: "Publicar",
+    url: "/morhealth/blog/write",
   },
 ]
 export const category = [
   {
     id: 1,
-    category: "Life",
-    title: "Stay Calm And Surf",
-    cover: "../images/category/ca1.png",
+    category: "Salud",
+    title: "Estar bien para sentirse bien",
+    cover: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
   },
   {
     id: 2,
-    category: "Fashion",
+    category: "Fitness",
     title: "Becoming a Dragonfly",
-    cover: "../images/category/ca2.png",
+    cover: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
   },
   {
     id: 3,
-    category: "Travel",
+    category: "Nutrición",
     title: "There's always light at the end of the tunnel",
-    cover: "../images/category/ca3.png",
+    cover: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
   },
-  {
-    id: 4,
-    category: "Sport",
-    title: "Stay Calm And Surf",
-    cover: "../images/category/ca4.png",
-  },
-  {
-    id: 5,
-    category: "Fun",
-    title: "There's always light at the end of the tunnel",
-    cover: "../images/category/ca5.png",
-  },
-  {
-    id: 6,
-    category: "Health",
-    title: "Becoming a Dragonfly",
-    cover: "../images/category/ca6.png",
-  },
-  {
-    id: 7,
-    category: "Business",
-    title: "Stay Calm And Surf",
-    cover: "../images/category/ca7.png",
-  },
-  {
-    id: 8,
-    category: "Technology",
-    title: "There's always light at the end of the tunnel",
-    cover: "../images/category/ca8.png",
-  },
+  
 ]
 export const blog = [
   {
     id: 1,
     title: "POST NO.1 CONTAINING A YOUTUBE VIDEO",
     desc: "Quisque at tellus nec magna viverra euismod. Maecenas lobortis, nisl et sodales blandit, neque mi ullamcorper eros, id efficitur ex velit in ante. Suspendisse elementum congue lacus quis gravida. Nunc eu hendrerit risus. Quisque blandit, orci non maximus vulputate, ligula ante ornare enim, ac interdum lorem leo varius mauris. Aliquam non sem vel orci malesuada sagittis. Vivamus id ullamcorper tellus. In hac habitasse platea dictumst. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras et sapien a arcu feugiat mattis. Suspendisse sed magna quis turpis rhoncus venenatis.",
-    category: "Nature",
-    cover: "../images/blogs/b1.jpg",
+    category: "Nutrición",
+    cover: "https://images.unsplash.com/photo-1497888329096-51c27beff665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
     date: "APRIL 05, 2018",
   },
 
@@ -90,7 +61,7 @@ export const blog = [
     title: "JUPITER IS FULL OF WATERFALLS SO EARLY",
     desc: "Vestibulum suscipit nibh sed odio pharetra, condimentum lacinia nisi varius. Ut ac ornare diam. Suspendisse vitae quam risus. Nulla ullamcorper libero justo, vitae dictum est efficitur id. Aenean et lacinia arcu. Sed non dolor id risus dapibus congue. Quisque tincidunt vitae tellus ut malesuada. Nulla eleifend nibh a maximus consectetur. Duis et mi porta, bibendum leo non, fermentum enim. Vivamus sed diam suscipit, ultricies ipsum sed, efficitur dui. Sed pharetra purus at iaculis vehicula. Fusce pellentesque placerat ante, id elementum dolor maximus sed. Aenean viverra at lectus quis vehicula. Aenean at arcu odio. Etiam mauris justo, cursus finibus aliquam eget, fermentum nec nulla. Sed finibus viverra magna non sagittis. Mauris fringilla augue vel quam rhoncus, in tempor enim lacinia. Donec nibh velit, scelerisque id neque sit amet, ornare consectetur sem. Donec convallis nec justo id consequat. Donec sem leo, pulvinar sit amet nisi a, mollis gravida est. Duis porttitor eleifend cursus. Vivamus ac dapibus dolor. Nullam leo tellus, rhoncus sit amet tempor vel, malesuada vel augue. Morbi laoreet sem eget tortor pulvinar mattis. Maecenas commodo ultricies orci, ut blandit urna accumsan sit amet. Ut a porttitor orci, maximus feugiat turpis. In eu sodales orci, et volutpat felis. Quisque orci quam, gravida at nulla tempor, vulputate pretium magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent congue, magna vitae interdum blandit, arcu mauris placerat nulla, sit amet rhoncus justo risus in neque.",
     category: "Nature",
-    cover: "../images/blogs/b2.jpg",
+    cover: "../images/b5.jpg",
     date: "MARCH 15, 2018",
   },
   {

@@ -165,7 +165,7 @@ const linksArray = [
     {
         label: "Inicio",
         icon: <AiOutlineHome />,
-        to: "/morshealth",
+        to: "/morhealth",
         notification: 0,
     },
 ];
@@ -174,19 +174,19 @@ const BloglinksArray = [
     {
         label: "Blog",
         icon: <TfiWrite />,
-        to: "/morshealth/blog",
+        to: "/morhealth/blog",
         notification: 3,
     },
     {
         label: "Nutricion",
         icon: <FaAppleAlt />,
-        to: "/morshealth/nutricion",
+        to: "/morhealth/nutricion",
         notification: 0,
     },
     {
         label: "Ejercicios",
         icon: <MdFitnessCenter />,
-        to: "/morshealth/ejercicios",
+        to: "/morhealth/ejercicios",
         notification: 0,
     },
 ];
