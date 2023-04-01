@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { blog } from "../assets/data/data";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsPencilSquare } from "react-icons/bs";
 import { AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
@@ -8,11 +7,15 @@ import Header from "../components/header/Header";
 import moment from 'moment';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext';
+import DOMPurify from "dompurify";
 
 const DetailsPages = () => {
 
-
+  //Para la descripcion del post
   const [post, setPost] = useState({});
+
+  //Para los posts relacionados
+  const [posts, setPosts] = useState([]);
 
   const location = useLocation();
 
@@ -37,26 +40,30 @@ const DetailsPages = () => {
   }, [postId]);
 
 
-  const posts = [
-    {
-      id: 1,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 2,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 3,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      if (post.cat) { // Asegúrate de que post.cat esté disponible antes de hacer la solicitud
+        try {
+          const res = await axios.get(`/posts/?cat=${post.cat}`);
+          setPosts(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    fetchData();
+  }, [post.cat]);
+
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/morhealth/blog/")
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 
 
   return (
@@ -75,7 +82,11 @@ const DetailsPages = () => {
             <TitleAuthorContainer>
               <h1>{post.title}</h1>
               <AuthorSection>
-                <AuthorImage src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Author" />
+
+                {post.userImg &&
+                  <AuthorImage src={post.userImg} alt="" />
+                }
+
                 <p>Autor: {post.username}</p>
               </AuthorSection>
             </TitleAuthorContainer>
@@ -86,22 +97,24 @@ const DetailsPages = () => {
               {currentUser.username === post.username && (
                 <Buttons>
                   <Button>
-                    <Link to='/morhealth/blog/write?=2'>
+                    <Link to='/morhealth/blog/write?=2' state={post}>
                       <BsPencilSquare />
                     </Link>
                   </Button>
                   <Button>
-                    <AiOutlineDelete />
+                    <AiOutlineDelete onClick={handleDelete} />
                   </Button>
                 </Buttons>
               )}
             </PublishButtonsContainer>
 
-            <PostContent>
-              {post.desc}
-              <p>
-                ...
-              </p>
+            <PostContent  >
+
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(post.desc),
+                }}
+              ></p>
             </PostContent>
 
           </Container>
@@ -109,8 +122,8 @@ const DetailsPages = () => {
 
         <RelatedPosts>
           <RelatedPostsContainer>
-            <RelatedPostsTitle> Otros posts que te podrían interesar: </RelatedPostsTitle>
-            <CardContainer>
+            <CardContainer cat={post.cat}>
+              <RelatedPostsTitle> Otros posts que te podrían interesar: </RelatedPostsTitle>
               {posts.map((post) => (
                 <CardBox key={post.id}>
                   <img src={post.img} alt="" />

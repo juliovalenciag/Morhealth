@@ -23,8 +23,13 @@ const Card = () => {
     };
     fetchData();
   }, [cat]);
-  
-  
+
+  const getText = (html) =>{
+    const doc = new DOMParser().parseFromString(html, "text/html")
+    return doc.body.textContent
+  }
+
+
   {/*
   const posts = [
     {
@@ -56,7 +61,7 @@ const Card = () => {
           {posts.map((post) => (
             <CardBox className="box boxItems" key={post.idpost}>
               <div className="img">
-                <img src={post.img} alt="" />
+                <img src={`../upload/${post.img}`} alt="" />
               </div>
               <CardDetails className="details">
 
@@ -69,7 +74,7 @@ const Card = () => {
 
                 <StyledLink to={`/morhealth/blog/post/${post.idpost}`} className="link">
                   <h3>{post.title}</h3>
-                  <CardDescription>{post.desc.slice(0, 180)}...</CardDescription>
+                  <CardDescription><p>{getText(post.desc.slice(0, 180))}</p>...</CardDescription>
                   <ReadMore>Leer más</ReadMore>
                 </StyledLink>
                 <CardDate className="date">

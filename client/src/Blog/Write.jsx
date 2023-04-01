@@ -4,17 +4,65 @@ import ReactQuill from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import styled from 'styled-components';
 import Header from './components/header/Header';
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
+import moment from "moment";
+
 
 const Write = () => {
 
-    const [value, setValue] = useState('');
+    const state = useLocation().state;
+
+    const [value, setValue] = useState(state?.title || "");
+    const [title, setTitle] = useState(state?.desc || "");
+    const [file, setFile] = useState(null);
+    const [cat, setCat] = useState(state?.cat || "");
+
+    const navigate = useNavigate()
+    
+    const upload = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            const res = await axios.post("/upload", formData);
+            return res.data;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        const imgUrl = await upload();
+
+        try {
+            state
+                ? await axios.put(`/posts/${state.idpost}`, {
+                    title,
+                    desc: value,
+                    cat,
+                    img: file ? imgUrl : "",
+                })
+                : await axios.post(`/posts/`, {
+                    title,
+                    desc: value,
+                    cat,
+                    img: file ? imgUrl : "",
+                    date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+                });
+            navigate("/morhealth/blog")
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <>
             <Header />
             <Container>
                 <Content>
-                    <TitleInput type='text' placeholder='Título' />
+                    <TitleInput type='text' placeholder='Título' value={title} onChange={(e) => setTitle(e.target.value)} />
                     <EditorContainer>
                         <ReactQuill theme='snow' value={value} onChange={setValue} />
                     </EditorContainer>
@@ -29,21 +77,21 @@ const Write = () => {
                         <Info>
                             <b>Visibilidad: </b> Público
                         </Info>
-                        <FileInput type="file" name='' id='file' />
+                        <FileInput type="file" name='' id='file' onChange={(e) => setFile(e.target.files[0])} />
                         <FileLabel htmlFor='file'>Subir foto</FileLabel>
                         <Buttons>
                             <Button>Guardar como borrador</Button>
-                            <Button>Actualizar</Button>
+                            <Button onClick={handleClick}>Publicar</Button>
                         </Buttons>
                     </MenuItem>
                     <MenuItem>
                         <h1>Categoría</h1>
 
-                        <RadioInput type='radio' name='cat' value='salud' id='salud' />
+                        <RadioInput type='radio' checked={cat === "salud"} name='cat' value='salud' id='salud' onChange={(e) => setCat(e.target.value)} />
                         <RadioLabel htmlFor="salud">Salud</RadioLabel>
-                        <RadioInput type='radio' name='cat' value='ejercicios' id='ejercicios' />
+                        <RadioInput type='radio' checked={cat === "fitness"} name='cat' value='fitness' id='fitness' onChange={(e) => setCat(e.target.value)} />
                         <RadioLabel htmlFor="ejercicios">Fitness</RadioLabel>
-                        <RadioInput type='radio' name='cat' value='nutricion' id='nutricion' />
+                        <RadioInput type='radio' checked={cat === "nutricion"} name='cat' value='nutricion' id='nutricion' onChange={(e) => setCat(e.target.value)} />
                         <RadioLabel htmlFor="nutricion">Nutrición</RadioLabel>
 
                     </MenuItem>
