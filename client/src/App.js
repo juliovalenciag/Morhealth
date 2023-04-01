@@ -41,7 +41,7 @@ import MorshealthHome from "./pages/MorshealthHome";
 import RecipeSearch from "./nutricion/nutricionComponents/RecipeSearch";
 import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
 import LoginPage from "./pages/Sesion/LoginPage";
-import { DetailsPages } from "./Blog/details/DetailsPages";
+import  DetailsPages  from "./Blog/details/DetailsPages";
 import { Create } from "./Blog/components/create/Create";
 
 export const ThemeContext = React.createContext(null);

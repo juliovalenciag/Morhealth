@@ -54,7 +54,7 @@ const Card = () => {
 
 
           {posts.map((post) => (
-            <CardBox className="box boxItems" key={post.id}>
+            <CardBox className="box boxItems" key={post.idpost}>
               <div className="img">
                 <img src={post.img} alt="" />
               </div>
@@ -67,7 +67,7 @@ const Card = () => {
                 </CardTag>
           */}
 
-                <StyledLink to={`/morhealth/blog/post/${post.id}`} className="link">
+                <StyledLink to={`/morhealth/blog/post/${post.idpost}`} className="link">
                   <h3>{post.title}</h3>
                   <CardDescription>{post.desc.slice(0, 180)}...</CardDescription>
                   <ReadMore>Leer más</ReadMore>
