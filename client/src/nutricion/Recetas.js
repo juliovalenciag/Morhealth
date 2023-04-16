@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Popular from './Popular';
-import Veggie from './Veggie';
 import { searchRecipes } from './../utils/spoonacularApi';
 import { Link } from 'react-router-dom';
 import FilterByCuisine from './nutricionComponents/FilterByCuisine';
@@ -140,8 +139,6 @@ function Recetas() {
     <Popular />
 
     <SectionTitle>Platillos Vegetarianos</SectionTitle>
-    <Veggie />
-
   </>
 
   );

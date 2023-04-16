@@ -167,8 +167,8 @@ const GridItemImage = styled(GridItem)`
   font-weight: bold;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  width: 100%;  // Asegúrate de que ocupe todo el ancho del GridItem
-  height: 100%; // Asegúrate de que ocupe toda la altura del GridItem
+  width: 100%;  
+  height: 100%; 
 `;
 
 const FullHeightGridItem = styled(GridItem)`
