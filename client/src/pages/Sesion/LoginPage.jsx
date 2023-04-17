@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import logo from './../../assets/logo/morhealthlogo.png';
+import mhlogo from './../../assets/logo/morhealthlogo.png';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext'
+import { v } from '../../styles/variables';
 
 const LoginPage = () => {
 
@@ -16,6 +17,8 @@ const LoginPage = () => {
 
     const [err, setError] = useState(null);
 
+    const [ageError, setAgeError] = useState(null);
+
     const navigate = useNavigate();
 
     const { login } = useContext(AuthContext);
@@ -24,6 +27,19 @@ const LoginPage = () => {
     const [signIn, toggle] = useState(true);
 
     const [showPassword, setShowPassword] = useState(false);
+
+    const [activeRegistration, setActiveRegistration] = useState("user");
+
+    const showUserRegistration = () => {
+        setActiveRegistration("user");
+        toggle(false);
+    };
+
+    const showProfessionalRegistration = () => {
+        setActiveRegistration("professional");
+        toggle(false);
+    };
+
 
     const togglePasswordVisibilityOn = (event) => {
         event.preventDefault();
@@ -38,7 +54,18 @@ const LoginPage = () => {
     };
 
     const handleChange = e => {
+
+        const { name, value } = e.target;
+
         setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
+        if (name === "age") {
+            if (value < 15 || value > 64) {
+                setAgeError("La edad debe estar entre 15 y 64 años");
+            } else {
+                setAgeError(null);
+            }
+        }
     }
 
     const handleSubmit = async e => {
@@ -61,35 +88,102 @@ const LoginPage = () => {
         }
     }
 
-    
+
     return (
         <Container>
+
+
             <SignUpContainer signIn={signIn}>
                 <SesionForm>
-                    <Logo src={logo} alt='Morhealth' />
-                    <SesionTitle>Crea tu cuenta</SesionTitle>
-                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange}></SesionInput>
-                    <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
+                    
+                    {
+                        activeRegistration === "user" ? (
+                            <>
+                                <SesionTitle>Registro de usuario</SesionTitle>
+                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={handleChange}></SesionInput>
+                                <SesionInput
+                                    required
+                                    type="number"
+                                    placeholder="Edad"
+                                    name="age"
+                                    min="15"
+                                    max="64"
+                                    onChange={handleChange}
+                                />
+                                {ageError && <ErrMss>{ageError}</ErrMss>}
 
-                    <InputContainer>
-                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
-                        <ShowPasswordButton
-                            onMouseDown={togglePasswordVisibilityOn}
-                            onMouseUp={togglePasswordVisibilityOff}
-                            onMouseLeave={togglePasswordVisibilityOff}
-                        >
-                            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                        </ShowPasswordButton>
-                    </InputContainer>
+                                <Select
+                                    required
+                                    name="gender"
+                                    id="gender"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Seleccione su género</option>
+                                    <option value="1">Hombre</option>
+                                    <option value="2">Mujer</option>
+                                </Select>
+
+                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
+
+                                <InputContainer>
+                                    <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
+                                    <ShowPasswordButton
+                                        onMouseDown={togglePasswordVisibilityOn}
+                                        onMouseUp={togglePasswordVisibilityOff}
+                                        onMouseLeave={togglePasswordVisibilityOff}
+                                    >
+                                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                    </ShowPasswordButton>
+                                </InputContainer>
+                            </>
+                        ) : (
+                            <>
+                                <SesionTitle>Registro de profesional</SesionTitle>
+                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={handleChange}></SesionInput>
+
+                                <Select required name="occupation" onChange={handleChange}>
+                                    <option value="">Selecciona una ocupación</option>
+                                    <option value="Entrenador">Entrenador</option>
+                                    <option value="Nutriologo">Nutriologo</option>
+                                    <option value="Médico">Médico</option>
+                                </Select>
+
+                                <SesionInput required type="text" placeholder='Ubicación' name='location' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="tel" placeholder='Teléfono' name='phone' maxLength="10" onChange={handleChange}></SesionInput>
+
+                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
+
+                                <InputContainer>
+                                    <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
+                                    <ShowPasswordButton
+                                        onMouseDown={togglePasswordVisibilityOn}
+                                        onMouseUp={togglePasswordVisibilityOff}
+                                        onMouseLeave={togglePasswordVisibilityOff}
+                                    >
+                                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                    </ShowPasswordButton>
+                                </InputContainer>
+                            </>
+                        )
+                    }
+
 
                     <SesionButton onClick={handleSubmitR}>Registrar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignUpContainer>
 
+
+
             <SignInContainer signIn={signIn}>
                 <SesionForm>
-                    <Logo src={logo} alt='Morhealth' />
+                    <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
                     <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} ></SesionInput>
 
@@ -125,8 +219,11 @@ const LoginPage = () => {
 
                     <RightOverlayPanel signIn={signIn}>
                         <SesionTitle>Hola, amigo</SesionTitle>
-                        <Paragraph>Regístrate para comenzar</Paragraph>
-                        <GhostButton onClick={() => toggle(false)}>Registrarse</GhostButton>
+                        <Paragraph>Registrarse como: </Paragraph>
+                        <GhostButton onClick={showUserRegistration}>Usuario</GhostButton>
+                        <Paragraph>O</Paragraph>
+                        <Paragraph>Registrarse como: </Paragraph>
+                        <GhostButton onClick={showProfessionalRegistration}>Profesional</GhostButton>
                     </RightOverlayPanel>
                 </Overlay>
             </OverlayContainer>
@@ -143,7 +240,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 150px;
+    width: 50px;
     max-width: 100%;
     height: auto;
     margin-bottom: 20px;
@@ -160,12 +257,27 @@ const InputContainer = styled.div`
 
 const ShowPasswordButton = styled.button`
   position: absolute;
-  right: 10px;
+  right: 0px;
   background: transparent;
   border: none;
   cursor: pointer;
+  top: -23px;
 `;
 
+
+
+const Select = styled.select`
+  background-color: #eee;
+  border-radius: 0.5rem;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: blanchedalmond;
+  }
+`;
 
 const SignUpContainer = styled.div`
 position: absolute;
@@ -195,10 +307,24 @@ const SesionForm = styled.form`
  text-align: center;
  `;
 
-const SesionTitle = styled.h1`
- font-weight: bold;
- margin: 0;
- `;
+const CustomInput = styled.input`
+width: 100%;
+padding: 0.5rem 1rem;
+margin-bottom: 1rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 16px;
+outline: none;
+&:focus {
+  border-color: #3f51b5;
+}
+`;
+
+const SesionTitle = styled.h2`
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: ${v.mdSpacing};
+`;
 
 const ErrMss = styled.p`
     color: #FF6C4C;

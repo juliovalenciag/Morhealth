@@ -2,12 +2,27 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import Popular from './Popular';
 import { searchRecipes } from './../utils/spoonacularApi';
 import { Link } from 'react-router-dom';
+import { colors } from '../styles/variables';
 import FilterByCuisine from './nutricionComponents/FilterByCuisine';
 
+
+import RecipeTypeCard from './nutricionComponents/RecipeTypeCard';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { FaUtensils, FaCookieBite, FaBreadSlice } from 'react-icons/fa';
+import { MdFreeBreakfast, MdLocalDrink, MdClear } from 'react-icons/md';
+import { TbSalad, TbSoup } from 'react-icons/tb';
+import { GiSaucepan } from 'react-icons/gi';
+import { RiCake3Fill } from 'react-icons/ri';
+
+import Popular from './nutricionComponents/Popular';
+
+
 function Recetas() {
+
   const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
 
   const [input, setInput] = useState("");
@@ -16,9 +31,41 @@ function Recetas() {
   const [query, setQuery] = useState('');
   const [type, setType] = useState('');
   const [recipes, setRecipes] = useState([]);
+  const [nutritionData, setNutritionData] = useState({});
+
+
 
 
   const navigate = useNavigate();
+
+  const fetchNutritionData = async (id) => {
+    try {
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=${apiKey}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+      const data = await response.json();
+      setNutritionData((prevState) => ({
+        ...prevState,
+        [id]: {
+          fat: data.fat,
+          protein: data.protein,
+          carbs: data.carbs,
+        },
+      }));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    (searchResults.length > 0
+      ? searchResults
+      : cuisineFilterResults
+    ).forEach((result) => fetchNutritionData(result.id));
+  }, [searchResults, cuisineFilterResults]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -74,85 +121,157 @@ function Recetas() {
     setRecipes(results);
   };
 
+  const handleClearFilters = () => {
+    setCuisineFilterResults([]);
+    setType('');
+    setSearchResults([]);
+  };
+
+
+  const recipeTypes = [
+    { icon: <FaUtensils />, title: 'Principal', value: 'main course' },
+    { icon: <MdLocalDrink />, title: 'Bebidas', value: 'beverage' },
+    { icon: <MdFreeBreakfast />, title: 'Desayuno', value: 'breakfast' },
+    { icon: <TbSalad />, title: 'Ensalada', value: 'salad' },
+    { icon: <FaBreadSlice />, title: 'Pan', value: 'bread' },
+    { icon: <RiCake3Fill />, title: 'Postre', value: 'dessert' },
+    { icon: <TbSoup />, title: 'Sopas', value: 'soup' },
+    { icon: <GiSaucepan />, title: 'Salsas', value: 'sauce' },
+    { icon: <FaCookieBite />, title: 'Snack', value: 'snack' }
+  ];
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: false,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: false,
+          dots: true,
+        },
+      },
+    ],
+  };
+
+  const handleTypeClick = (typeValue) => {
+    setType(typeValue);
+    if (typeValue !== "") {
+      fetchRecipesByType(typeValue);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+
   return (
     <>
-    <FormStyle onSubmit={submitHandler}>
-      <SearchBar>
-        <FaSearch className="search-icon" />
-        <input
-          onChange={(e) => setInput(e.target.value)}
-          type="text"
-          placeholder="Buscar un platillo..."
-          value={input}
-        />
-        {input && (
-          <FaTimes
-            className="clear"
-            onClick={clearInput}
+
+      <FormStyle onSubmit={submitHandler}>
+        <SearchBar>
+          <FaSearch className="search-icon" />
+          <input
+            onChange={(e) => setInput(e.target.value)}
+            type="text"
+            placeholder="Buscar un platillo..."
+            value={input}
           />
-        )}
-      </SearchBar>
-      <FilterSelect
-        value={type}
-        onChange={(event) => {
-          setType(event.target.value);
-          if (event.target.value !== "") {
-            fetchRecipesByType(event.target.value);
-          } else {
-            setSearchResults([]);
-          }
-        }}
-      >
-        <option value="">Todos</option>
-        <option value="main course">Plato principal</option>
-        <option value="side dish">Acompañamiento</option>
-        <option value="dessert">Postre</option>
-        <option value="appetizer">Aperitivo</option>
-        <option value="salad">Ensalada</option>
-        <option value="bread">Pan</option>
-        <option value="breakfast">Desayuno</option>
-        <option value="soup">Sopa</option>
-        <option value="beverage">Bebida</option>
-        <option value="sauce">Salsa</option>
-        <option value="drink">Bebida alcohólica</option>
-      </FilterSelect>
-    </FormStyle>
+          {input && (
+            <FaTimes
+              className="clear"
+              onClick={clearInput}
+            />
+          )}
+        </SearchBar>
 
-    <FilterByCuisine
-      clearSearch={clearSearch}
-      setCuisineFilterResults={setCuisineFilterResults}
-      setSearchResults={setSearchResults}
-    />
+        <Clear onClick={handleClearFilters}>
+          <p>Limpiar </p>
+          
+        </Clear>
 
-    <SearchResultsContainer>
-      {(searchResults.length > 0
-        ? searchResults
-        : cuisineFilterResults
-      ).map((result) => (
-        <SearchResultCard key={result.id}>
-          <img src={result.image} alt={result.title} />
-          <h3>{result.title}</h3>
-        </SearchResultCard>
-      ))}
-    </SearchResultsContainer>
+        <FilterByCuisine
+          clearSearch={clearSearch}
+          setCuisineFilterResults={setCuisineFilterResults}
+          setSearchResults={setSearchResults}
+        />
 
-    <Popular />
 
-    <SectionTitle>Platillos Vegetarianos</SectionTitle>
-  </>
+      </FormStyle>
 
+
+      <RecipeTypesWrapper>
+        {recipeTypes.map((type, index) => (
+          <RecipeTypeCard
+            key={index}
+            icon={type.icon}
+            title={type.title}
+            onClick={() => handleTypeClick(type.value)}
+          />
+        ))}
+      </RecipeTypesWrapper>
+      <SliderContainer>
+        <Slider {...settings}>
+          {recipeTypes.map((recipeType, index) => (
+            <RecipeTypeCard
+              key={index}
+              icon={recipeType.icon}
+              title={recipeType.title}
+              value={recipeType.value}
+              onClick={() => handleTypeClick(recipeType.value)}
+            />
+          ))}
+        </Slider>
+      </SliderContainer>
+
+      <SearchResultsContainer>
+        {(searchResults.length > 0
+          ? searchResults
+          : cuisineFilterResults
+        ).map((result) => (
+          <SearchResultCard key={result.id}>
+            <img src={result.image} alt={result.title} />
+            <h3>{result.title}</h3>
+            {nutritionData[result.id] && (
+              <NutritionInfo>
+                <p>Grasas: {nutritionData[result.id].fat}</p>
+                <p>Proteínas: {nutritionData[result.id].protein}</p>
+                <p>Carbohidratos: {nutritionData[result.id].carbs}</p>
+              </NutritionInfo>
+            )}
+          </SearchResultCard>
+        ))}
+      </SearchResultsContainer>
+
+      <Popular />
+
+    </>
   );
 };
-
-
-
-const SectionTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0rem;
-  text-align: center;
-`;
-
 
 const FormStyle = styled.form`
   display: flex;
@@ -160,21 +279,42 @@ const FormStyle = styled.form`
   margin: 1rem 0;
 `;
 
+const Clear = styled.button`
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(63, 63, 63, 0.5);
+  position: relative;
+  height: 3rem;
+  justify-content: center; 
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+
+  p{
+    font-size: 1rem;
+    font-weight: 500;
+  }
+`;
+
+
+
 const SearchBar = styled.div`
   display: flex;
   width: 100%;
   max-width: 800px;
   position: relative;
-  justify-content: center;
+  height: 3rem;
+  justify-content: center; 
   align-items: center;
-  background-color: #031728;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(63, 63, 63, 0.5);
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   margin-right: 1rem;
 
   .search-icon, .clear {
     position: absolute;
-    color: #D9D9D9;
     cursor: pointer;
     transition: all 0.3s ease;
   }
@@ -183,7 +323,7 @@ const SearchBar = styled.div`
     left: 1rem;
 
     &:hover {
-      color: #fff;
+      color: ${colors.principal};
     }
   }
 
@@ -191,15 +331,14 @@ const SearchBar = styled.div`
     right: 1rem;
 
     &:hover {
-      color: #fff;
+      color: ${colors.principal};
     }
   }
 
   input {
     border: none;
     background: transparent;
-    font-size: 1.5rem;
-    color: white;
+    font-size: 1rem;
     padding: 1rem 3rem;
     border-radius: 1rem;
     outline: none;
@@ -207,11 +346,11 @@ const SearchBar = styled.div`
     transition: all 0.3s ease;
 
     &::placeholder {
-      color: #D9D9D9;
+      color: ${colors.darkest};
     }
 
     &:focus::placeholder {
-      color: #B1B1B1;
+      color: ${colors.darkest};
     }
   }
 
@@ -228,33 +367,44 @@ const SearchBar = styled.div`
   }
 `;
 
-const FilterSelect = styled.select`
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  background-color: #031728;
-  color: white;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+const RecipeTypesWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1rem;
 
-  &:hover {
-    background-color: #235C7F;
+  @media (max-width: 768px) {
+    display: none; 
+  }
+`;
+
+const SliderContainer = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  display: none; 
+  height: fit-content;
+
+  @media (max-width: 768px) {
+    display: block; 
+    height: fit-content;
   }
 `;
 
 
 
 
-const SearchResultsContainer = styled.div`
+export const SearchResultsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
   margin: 2rem 0;
 `;
 
-const SearchResultCard = styled.div`
+export const SearchResultCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #F0F2F3;
   border-radius: 1rem;
   padding: 1rem;
@@ -276,6 +426,7 @@ const SearchResultCard = styled.div`
   h3 {
     margin: 1rem 0;
     color: #031728;
+    text-align: center;
   }
 
   @media (max-width: 768px) {
@@ -283,6 +434,21 @@ const SearchResultCard = styled.div`
       height: 150px;
     }
   }
+`;
+
+const FilterWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const NutritionInfo = styled.div`
+    font-size: 0.9rem;
+    color: #031728;
+    margin-top: 0.5rem;
+
+    p {
+        margin: 0;
+    }
 `;
 
 export default Recetas;

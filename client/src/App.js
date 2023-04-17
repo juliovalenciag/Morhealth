@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createBrowserRouter, RouterProvider, Route, Outlet, Form } from 'react-router-dom';
 import './App.css';
-import Home from './pages/Home';
+import Home from './home/Home';
 
 import Principal from "./pages/Principal";
 import Layout from './components/Layout/Layout'
@@ -38,20 +38,24 @@ import NutritionPlanDetails from './fitness/nutrition/NutritionPlanDetails'
 import NutritionPlansList from './fitness/nutrition/NutritionPlansList'
 import Recetas from "./nutricion/Recetas";
 import MorshealthHome from "./pages/MorshealthHome";
-import RecipeSearch from "./nutricion/nutricionComponents/RecipeSearch";
 import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
 import LoginPage from "./pages/Sesion/LoginPage";
 import  DetailsPages  from "./Blog/details/DetailsPages";
 import { Create } from "./Blog/components/create/Create";
+import EjerciciosHome from "./pages/EjerciciosHome";
+import Header from "./home/common/header/Header";
+import Footer from "./home/common/footer/Footer";
+import Pie from "./home/common/Pie";
+import Ejercicios from "./fitness/Ejercicios";
 
 export const ThemeContext = React.createContext(null);
 
 const LayoutInicio = () => {
   return (
     <>
-
+      <Header/>
       <Outlet />
-
+    <Pie/>
     </>
   )
 }
@@ -156,11 +160,11 @@ const router = createBrowserRouter([
 
       {
         path: '/morhealth/ejercicios',
-        element: <FitnessHome />
+        element: <EjerciciosHome />
       },
       {
         path: '/morhealth/ejercicios/ejercicio',
-        element: <Fitness />
+        element: <Ejercicios />
       },
       {
         path: '/morhealth/ejercicios/ejercicio/rutinas',
@@ -217,7 +221,7 @@ const router = createBrowserRouter([
 
       {
         path: '/morhealth/nutricion/recetilla',
-        element: <RecipeSearch />
+        element: <Recetas />
       },
       {
         path: '/morhealth/nutricion/recetilla/:id',
@@ -228,7 +232,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/login',
+    path: '/ingresar',
     element: <LoginPage />
   },
 ])

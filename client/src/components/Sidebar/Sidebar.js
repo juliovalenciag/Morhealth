@@ -1,43 +1,21 @@
 import React, { useContext, useRef, useState } from "react";
-import {
-    SDivider,
-    SLink,
-    SLinkContainer,
-    SLinkIcon,
-    SLinkLabel,
-    SLinkNotification,
-    SLogo,
-    SSearch,
-    SSearchIcon,
-    SSidebar,
-    SSidebarButton,
-    STheme,
-    SThemeLabel,
-    SThemeToggler,
-    SToggleThumb,
-} from "./styles";
-
-import { logoSVG } from "../../assets";
-
-import {
-    AiOutlineApartment,
-    AiOutlineHome,
-    AiOutlineLeft,
-    AiOutlineSearch,
-    AiOutlineSetting,
-} from "react-icons/ai";
+import mhlogo from "../../assets/logo/morhealthlogo.png";
+import styled from "styled-components";
+import { btnReset, v } from "../../styles/variables";
+import { device } from "../../styles/device";
+import { AiOutlineHome, AiOutlineLeft } from "react-icons/ai";
 import { MdLogout, MdOutlineAnalytics, MdFitnessCenter } from "react-icons/md";
 import { BsPeople, BsFillQuestionCircleFill } from "react-icons/bs";
-import { FaAppleAlt } from "react-icons/fa";
+import { FaAppleAlt , FaUserFriends} from "react-icons/fa";
 import { TfiWrite } from "react-icons/tfi";
-
+import { BiWorld } from "react-icons/bi";
 import { ThemeContext } from "./../../App";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 
 const Sidebar = () => {
 
-    const {currentUser, logout} = useContext(AuthContext);
+    const { currentUser, logout } = useContext(AuthContext);
 
     const searchRef = useRef(null);
     const { setTheme, theme } = useContext(ThemeContext);
@@ -56,39 +34,27 @@ const Sidebar = () => {
     return (
         <SSidebar isOpen={sidebarOpen}>
             <>
-                <SSidebarButton isOpen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)}>
+                <SSidebarButton
+                    isOpen={sidebarOpen}
+                    onClick={() => setSidebarOpen((p) => !p)}
+                >
                     <AiOutlineLeft />
                 </SSidebarButton>
             </>
-            <SLogo>
-                <img src={logoSVG} alt="logo" />
-                
+
+            <SLogo isOpen={sidebarOpen}>
+                <img src={mhlogo} alt="logo" />
             </SLogo>
 
             <SLogo>
-
-            {sidebarOpen && (
-                <p>{currentUser?.username} </p>
+                {sidebarOpen && (
+                    <p>{currentUser?.username} </p>
                 )}
-            
-            </SLogo>
 
-            <SSearch
-                onClick={searchClickHandler}
-                style={!sidebarOpen ? { width: `fit-content` } : {}}
-            >
-                <SSearchIcon>
-                    <AiOutlineSearch />
-                </SSearchIcon>
-                <input
-                    ref={searchRef}
-                    placeholder="Buscar"
-                    style={!sidebarOpen ? { width: 0, padding: 0 } : {}}
-                />
-            </SSearch>
+            </SLogo>
 
             {linksArray.map(({ icon, label, notification, to }) => (
-                <SLinkContainer key={label} isActive={pathname === to}>
+                <SLinkContainer displayMobile={!sidebarOpen} key={label} isActive={pathname === to}>
                     <SLink to={to} style={!sidebarOpen ? { width: `fit-content` } : {}}>
                         <SLinkIcon>{icon}</SLinkIcon>
                         {sidebarOpen && (
@@ -104,11 +70,10 @@ const Sidebar = () => {
                 </SLinkContainer>
             ))}
 
-            <SDivider />
+            <SDivider displayMobile={!sidebarOpen} />
 
-
-            {BloglinksArray.map(({ icon, label, notification, to }) => (
-                <SLinkContainer key={label} isActive={pathname === to}>
+            {SidebarArray.map(({ icon, label, notification, to }) => (
+                <SLinkContainer displayMobile={!sidebarOpen} key={label} isActive={pathname === to}>
                     <SLink to={to} style={!sidebarOpen ? { width: `fit-content` } : {}}>
                         <SLinkIcon>{icon}</SLinkIcon>
                         {sidebarOpen && (
@@ -124,31 +89,27 @@ const Sidebar = () => {
                 </SLinkContainer>
             ))}
 
+            <SDivider displayMobile={!sidebarOpen} />
 
-            <SDivider />
+            <SLinkContainer displayMobile={!sidebarOpen}>
+                <SLink to="/morhealth/profesionales" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+                    <SLinkIcon><FaUserFriends/></SLinkIcon>
+                    {sidebarOpen && <SLinkLabel>Profesionales</SLinkLabel>}
+                </SLink>
+            </SLinkContainer>
+            <SLinkContainer>
+                <SLink to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+                    <SLinkIcon onClick={logout}><MdLogout onClick={logout} /></SLinkIcon>
+                    {sidebarOpen && <SLinkLabel onClick={logout}>Cerrar sesión</SLinkLabel>}
 
-
-            
-                <SLinkContainer >
-                    <SLink to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
-                        <SLinkIcon><BsFillQuestionCircleFill/></SLinkIcon>
-                        {sidebarOpen && <SLinkLabel>Contáctanos</SLinkLabel>}
-                    </SLink>
-                    </SLinkContainer>
-                    <SLinkContainer>
-                    <SLink to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
-
-                        
-                        <SLinkIcon onClick={logout}><MdLogout onClick={logout}/></SLinkIcon>
-                        {sidebarOpen && <SLinkLabel onClick={logout}>Cerrar sesión</SLinkLabel>}
-                        
-                    </SLink>
-                </SLinkContainer>
-            
-            <SDivider />
+                </SLink>
+            </SLinkContainer>
 
 
-            <STheme>
+            <SDivider displayMobile={!sidebarOpen} />
+
+
+            <STheme displayMobile={!sidebarOpen}>
                 {sidebarOpen && <SThemeLabel>Dark Mode</SThemeLabel>}
                 <SThemeToggler
                     isActive={theme === "dark"}
@@ -157,6 +118,12 @@ const Sidebar = () => {
                     <SToggleThumb style={theme === "dark" ? { right: "1px" } : {}} />
                 </SThemeToggler>
             </STheme>
+            <SLinkContainer displayMobile={!sidebarOpen}>
+                <SLink to="/morhealth" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+                    <SLinkIcon><BiWorld /></SLinkIcon>
+                    {sidebarOpen && <SLinkLabel>Cambiar idioma</SLinkLabel>}
+                </SLink>
+            </SLinkContainer>
         </SSidebar>
     );
 };
@@ -170,7 +137,7 @@ const linksArray = [
     },
 ];
 
-const BloglinksArray = [
+const SidebarArray = [
     {
         label: "Blog",
         icon: <TfiWrite />,
@@ -191,46 +158,130 @@ const BloglinksArray = [
     },
 ];
 
-const NutricionlinksArray = [
-    {
-        label: "Nutricion",
-        icon: <AiOutlineHome />,
-        to: "/nutricion",
-        notification: 0,
-    },
-    {
-        label: "Recetas",
-        icon: <MdOutlineAnalytics />,
-        to: "/statistics",
-        notification: 3,
-    },
-    {
-        label: "Planes",
-        icon: <BsPeople />,
-        to: "/nutricion",
-        notification: 0,
-    },
-];
+const SSidebar = styled.div`
+    width: ${({ isOpen }) => (!isOpen ? `auto` : v.sidebarWidth)};
+    background: ${({ theme }) => theme.bg};
+    height: 100vh;
+    padding: ${v.lgSpacing};
+    z-index: 10;
+    position: fixed;
+`;
 
-const FitnesslinksArray = [
-    {
-        label: "Ejercicios",
-        icon: <AiOutlineHome />,
-        to: "/nutricion",
-        notification: 0,
-    },
-    {
-        label: "Rutinas",
-        icon: <MdOutlineAnalytics />,
-        to: "/statistics",
-        notification: 3,
-    },
+const SSidebarButton = styled.button`
+    ${btnReset};
+    position: absolute;
+    top: ${v.xxlSpacing};
+    right: ${({ isOpen }) => (isOpen ? `-16px` : `-40px`)};
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.bg};
+    box-shadow: 0 0 4px ${({ theme }) => theme.bg3}, 0 0 7px ${({ theme }) => theme.bg};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 
-];
+    transform: ${({ isOpen }) => (!isOpen ? `rotate(180deg)` : `initial`)};
+`;
 
-const secondaryLinksArray = [
-   
-];
+const SLogo = styled.div`
+    width: 52px;
 
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    cursor: pointer;
+
+    margin-bottom: ${v.lgSpacing};
+`;
+
+
+
+const SDivider = styled.div`
+    height: 1px;
+    width: 100%;
+    background: ${({ theme }) => theme.text};
+    margin: ${v.lgSpacing} 0;
+`;
+
+const SLinkContainer = styled.div`
+    background: ${({ theme, isActive }) => (!isActive ? `transparent` : theme.bg3)};
+    border-radius: ${v.borderRadius};
+    margin: 8px 0;
+
+    :hover {
+        box-shadow: inset 0 0 0 1px ${({ theme }) => theme.bg3};
+    }
+`;
+
+const SLink = styled(Link)`
+    display: flex;
+    align-items: center;
+    text-align: left;
+    text-decoration: none;
+    color: inherit;
+    font-size: 16px;
+    padding: calc(${v.smSpacing} - 2px) 0;
+`;
+
+const SLinkIcon = styled.div`
+    padding: ${v.smSpacing} ${v.mdSpacing};
+    display: flex;
+
+    svg {
+        font-size: 20px;
+    }
+`;
+
+const SLinkLabel = styled.span`
+    display: block;
+    flex: 1;
+    margin-left: ${v.smSpacing};
+`;
+
+const SLinkNotification = styled.div`
+    font-size: 14px;
+    padding: calc(${v.smSpacing} / 2) ${v.smSpacing};
+    border-radius: calc(${v.borderRadius} / 2);
+    background: ${({ theme }) => theme.primary};
+    color: white;
+
+    margin-right: ${v.mdSpacing};
+`;
+
+const STheme = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+`;
+const SThemeLabel = styled.span`
+    display: block;
+    flex: 1;
+`;
+const SThemeToggler = styled.button`
+    ${btnReset};
+    margin: 0 auto;
+    cursor: pointer;
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: ${({ theme, isActive }) => (!isActive ? '#216B91' : theme.primary)};
+
+    position: relative;
+`;
+
+const SToggleThumb = styled.div`
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    transition: 0.2s ease right;
+    right: calc(100% - 18px - 1px);
+    border-radius: 50%;
+    background: ${({ theme }) => theme.bg};
+`;
 
 export default Sidebar;

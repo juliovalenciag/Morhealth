@@ -21,3 +21,13 @@ export const btnReset = css`
     text-align: inherit;
     padding: 0;
 `;
+
+export const colors ={
+    darkest: '#031728',
+    darker: '#223159',
+    principal: '#216B91',
+    lighter: '#4B90C0',
+    lightest: '#D9D9D9',
+    white: '#F0F2F3',
+
+};
