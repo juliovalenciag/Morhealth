@@ -19,7 +19,7 @@ const Write = () => {
     const [cat, setCat] = useState(state?.cat || "");
 
     const navigate = useNavigate()
-    
+
     const upload = async () => {
         try {
             const formData = new FormData();
@@ -51,7 +51,7 @@ const Write = () => {
                     img: file ? imgUrl : "",
                     date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
                 });
-            navigate("/morhealth/blog")
+            await navigate("/morhealth/blog");
         } catch (err) {
             console.log(err);
         }
@@ -88,11 +88,11 @@ const Write = () => {
                         <h1>Categoría</h1>
 
                         <RadioInput type='radio' checked={cat === "salud"} name='cat' value='salud' id='salud' onChange={(e) => setCat(e.target.value)} />
-                        <RadioLabel htmlFor="salud">Salud</RadioLabel>
+                        <RadioLabel htmlFor="salud" selected={cat === "salud"}>Salud</RadioLabel>
                         <RadioInput type='radio' checked={cat === "fitness"} name='cat' value='fitness' id='fitness' onChange={(e) => setCat(e.target.value)} />
-                        <RadioLabel htmlFor="ejercicios">Fitness</RadioLabel>
+                        <RadioLabel htmlFor="ejercicios" selected={cat === "fitness"}>Fitness</RadioLabel>
                         <RadioInput type='radio' checked={cat === "nutricion"} name='cat' value='nutricion' id='nutricion' onChange={(e) => setCat(e.target.value)} />
-                        <RadioLabel htmlFor="nutricion">Nutrición</RadioLabel>
+                        <RadioLabel htmlFor="nutricion" selected={cat === "nutricion"}>Nutrición</RadioLabel>
 
                     </MenuItem>
                 </Menu>
@@ -189,10 +189,10 @@ const RadioInput = styled.input`
 
 const RadioLabel = styled.label`
     display: inline-block;
-    color: #031728;
+    color: ${props => props.selected ? 'white' : '#031728'};
     padding: 0.3rem 0.5rem;
     margin-right: 1rem;
-    background-color: #f8f9fa;
+    background-color: ${props => props.selected ? '#4e73df' : '#f8f9fa'};
     cursor: pointer;
     border-radius: 3px;
 
