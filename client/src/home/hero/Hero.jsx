@@ -2,6 +2,7 @@ import React from "react"
 import Heading from "./../common/heading/Heading"
 import "./Hero.css"
 import Video from './../../assets/videos/videoBg.mp4'
+import { Link } from "react-router-dom"
 
 const Hero = () => {
   return (
@@ -15,12 +16,9 @@ const Hero = () => {
             <Heading subtitle='Bienvenido a ' title='MORHEALTH' />
             <p>Tu compañero de salud al alcance de tus manos</p>
             <div className='button'>
-              <button className='primary-btn'>
-                Ingresar
-              </button>
-              <button>
-                Ver los planes
-              </button>
+             
+              
+              
             </div>
           </div>
         </div>

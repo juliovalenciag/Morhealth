@@ -211,7 +211,7 @@ function Recetas() {
 
         <Clear onClick={handleClearFilters}>
           <p>Limpiar </p>
-          
+
         </Clear>
 
         <FilterByCuisine
@@ -253,18 +253,22 @@ function Recetas() {
           ? searchResults
           : cuisineFilterResults
         ).map((result) => (
-          <SearchResultCard key={result.id}>
-            <img src={result.image} alt={result.title} />
-            <h3>{result.title}</h3>
-            {nutritionData[result.id] && (
-              <NutritionInfo>
-                <p>Grasas: {nutritionData[result.id].fat}</p>
-                <p>Proteínas: {nutritionData[result.id].protein}</p>
-                <p>Carbohidratos: {nutritionData[result.id].carbs}</p>
-              </NutritionInfo>
-            )}
-          </SearchResultCard>
+
+          <Link to={`receta/${result.id}`}>
+            <SearchResultCard key={result.id}>
+              <img src={result.image} alt={result.title} />
+              <h3>{result.title}</h3>
+              {nutritionData[result.id] && (
+                <NutritionInfo>
+                  <p>Grasas: {nutritionData[result.id].fat}</p>
+                  <p>Proteínas: {nutritionData[result.id].protein}</p>
+                  <p>Carbohidratos: {nutritionData[result.id].carbs}</p>
+                </NutritionInfo>
+              )}
+            </SearchResultCard>
+          </Link>
         ))}
+
       </SearchResultsContainer>
 
       <Popular />

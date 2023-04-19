@@ -1,19 +1,33 @@
 import React, { useContext, useRef, useState } from "react";
 import mhlogo from "../../assets/logo/morhealthlogo.png";
 import styled from "styled-components";
-import { btnReset, v } from "../../styles/variables";
-import { device } from "../../styles/device";
+import { btnReset, v } from "./../../styles/variables";
+import { device } from "./../../styles/device";
 import { AiOutlineHome, AiOutlineLeft } from "react-icons/ai";
 import { MdLogout, MdOutlineAnalytics, MdFitnessCenter } from "react-icons/md";
 import { BsPeople, BsFillQuestionCircleFill } from "react-icons/bs";
-import { FaAppleAlt , FaUserFriends} from "react-icons/fa";
+import { FaAppleAlt } from "react-icons/fa";
 import { TfiWrite } from "react-icons/tfi";
 import { BiWorld } from "react-icons/bi";
-import { ThemeContext } from "./../../App";
+import { ImUsers } from "react-icons/im";
+import { Select, MenuItem } from "@mui/material";
+
+import { ThemeContext } from "../../App";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import { LanguageContext } from "../../context/languageContext";
+
 
 const Sidebar = () => {
+
+    const { currentLanguage, setCurrentLanguage } = useContext(LanguageContext);
+
+    const availableLanguages = [
+        { code: "en", label: "English" },
+        { code: "es", label: "Español" },
+        { code: "fr", label: "Français" },
+    ];
+
 
     const { currentUser, logout } = useContext(AuthContext);
 
@@ -32,7 +46,7 @@ const Sidebar = () => {
     };
 
     return (
-        <SSidebar isOpen={sidebarOpen}>
+        <SSidebar isOpen={sidebarOpen} availableLanguages={availableLanguages}>
             <>
                 <SSidebarButton
                     isOpen={sidebarOpen}
@@ -93,18 +107,19 @@ const Sidebar = () => {
 
             <SLinkContainer displayMobile={!sidebarOpen}>
                 <SLink to="/morhealth/profesionales" style={!sidebarOpen ? { width: `fit-content` } : {}}>
-                    <SLinkIcon><FaUserFriends/></SLinkIcon>
+                    <SLinkIcon><ImUsers /></SLinkIcon>
                     {sidebarOpen && <SLinkLabel>Profesionales</SLinkLabel>}
                 </SLink>
             </SLinkContainer>
             <SLinkContainer>
                 <SLink to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+
+
                     <SLinkIcon onClick={logout}><MdLogout onClick={logout} /></SLinkIcon>
                     {sidebarOpen && <SLinkLabel onClick={logout}>Cerrar sesión</SLinkLabel>}
 
                 </SLink>
             </SLinkContainer>
-
 
             <SDivider displayMobile={!sidebarOpen} />
 
@@ -121,7 +136,19 @@ const Sidebar = () => {
             <SLinkContainer displayMobile={!sidebarOpen}>
                 <SLink to="/morhealth" style={!sidebarOpen ? { width: `fit-content` } : {}}>
                     <SLinkIcon><BiWorld /></SLinkIcon>
-                    {sidebarOpen && <SLinkLabel>Cambiar idioma</SLinkLabel>}
+                    {sidebarOpen && <SLinkLabel>Cambiar idioma
+                        <Select
+                            value={currentLanguage}
+                            onChange={(e) => setCurrentLanguage(e.target.value)}
+                            style={!sidebarOpen ? { width: `fit-content` } : {}}
+                        >
+                            {availableLanguages.map((language) => (
+                                <MenuItem key={language.code} value={language.code}>
+                                    {language.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </SLinkLabel>}
                 </SLink>
             </SLinkContainer>
         </SSidebar>

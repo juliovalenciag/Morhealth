@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Route, Outlet, Form } from 'react-router-dom';
 import './App.css';
 import Home from './home/Home';
+import { translate } from 'libretranslate';
+
 
 import Principal from "./pages/Principal";
 import Layout from './components/Layout/Layout'
@@ -47,6 +49,7 @@ import Ejercicios from "./fitness/Ejercicios";
 import MhHome from "./pages/MhHome";
 import Profesionales from "./pages/Profesionales";
 import ExerciseDetail from "./fitness/ExerciseDetail";
+import RecipeDetail from "./nutricion/RecipeDetail";
 
 export const ThemeContext = React.createContext(null);
 
@@ -163,7 +166,7 @@ const router = createBrowserRouter([
         element: <EjerciciosHome />
       },
       {
-        path: '/morhealth/ejercicios/ejercicio/:id',
+        path: '/morhealth/ejercicios/:id',
         element: <ExerciseDetail />
       },
       {
@@ -221,6 +224,10 @@ const router = createBrowserRouter([
         path: '/morhealth/nutricion/recipe/:name',
         element: <Recipe />
       },
+      {
+        path: '/morhealth/nutricion/recetas/receta/:id',
+        element: <RecipeDetail />
+      },
 
 
       {
@@ -249,6 +256,8 @@ const router = createBrowserRouter([
 
 
 function App() {
+
+ 
 
   const [theme, setTheme] = useState("light");
   const themeStyle = theme === "light" ? lightTheme : darkTheme;

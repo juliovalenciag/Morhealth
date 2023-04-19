@@ -28,7 +28,7 @@ const HAbout = () => {
 
   return (
     <>
-      <Section id="about">
+      <Section id="planes">
         <Container>
           <Heading subtitle="Planes" title="Planes de suscripción para usuarios" />
           <CardContainer>
