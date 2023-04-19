@@ -2,17 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { colors } from '../styles/variables';
+import Progress from './CustomerReview/Progress';
 
 const EjerciciosHome = () => {
     return (
         <GridContainer>
             <FullHeightGridItem>
-                <ContentWrapper>
-                    <h2>Tu progreso</h2>
-                </ContentWrapper>
-                <ImageWrapper>
-                    <GridImage src='https://images.unsplash.com/reserve/EnF7DhHROS8OMEp2pCkx_Dufer%20food%20overhead%20hig%20res.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1756&q=80' alt='Planes Alimenticios' />
-                </ImageWrapper>
+                <Progress/>
             </FullHeightGridItem>
 
             <SubFullWidthGridItem>
@@ -119,6 +115,9 @@ const GridItem = styled.div`
 
 const FullHeightGridItem = styled(GridItem)`
   grid-row: span 3;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 
   @media (max-width: 1024px) {
     grid-row: span 2;

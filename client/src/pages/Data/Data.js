@@ -8,8 +8,10 @@ import {
   UilSignOutAlt,
 } from "@iconscout/react-unicons";
 
+import {AiFillHeart} from 'react-icons/ai'
+
 // Analytics Cards imports
-import { UilUsdSquare, UilMoneyWithdrawal } from "@iconscout/react-unicons";
+import { UilUsdSquare, UilMoneyWithdrawal,  UilHeartbeat, UilDumbbell, UilRestaurant } from "@iconscout/react-unicons";
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
 
 // Recent Card Imports
@@ -44,14 +46,14 @@ export const SidebarData = [
 // Analytics Cards Data
 export const cardsData = [
   {
-    title: "Sales",
+    title: "Salud",
     color: {
-      backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
-      boxShadow: "0px 10px 20px 0px #e0c6f5",
+      backGround: "#031728",
+      boxShadow: "12px 12px 35px 0px rgba(0,0,0,0.75)",
     },
     barValue: 70,
-    value: "25,970",
-    png: UilUsdSquare,
+    value: "80 bpm",
+    png: UilHeartbeat,
     series: [
       {
         name: "Sales",
@@ -60,14 +62,14 @@ export const cardsData = [
     ],
   },
   {
-    title: "Revenue",
+    title: "Ejercicios",
     color: {
-      backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
-      boxShadow: "0px 10px 20px 0px #FDC0C7",
+      backGround: "#223159",
+      boxShadow: "12px 12px 35px 0px rgba(0,0,0,0.75)",
     },
     barValue: 80,
-    value: "14,270",
-    png: UilMoneyWithdrawal,
+    value: "3,000 pasos",
+    png: UilDumbbell,
     series: [
       {
         name: "Revenue",
@@ -76,15 +78,15 @@ export const cardsData = [
     ],
   },
   {
-    title: "Expenses",
+    title: "Nutrición",
     color: {
       backGround:
-        "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",
-      boxShadow: "0px 10px 20px 0px #F9D59B",
+        "#216B91",
+      boxShadow: "12px 12px 35px 0px rgba(0,0,0,0.75)",
     },
     barValue: 60,
-    value: "4,270",
-    png: UilClipboardAlt,
+    value: "800 kcal",
+    png: UilRestaurant,
     series: [
       {
         name: "Expenses",
@@ -94,24 +96,23 @@ export const cardsData = [
   },
 ];
 
-// Recent Update Card Data
 export const UpdatesData = [
   {
     img: img1,
-    name: "Andrew Thomas",
-    noti: "has ordered Apple smart watch 2500mh battery.",
-    time: "25 seconds ago",
+    name: "Luaish",
+    noti: "ha publicado 10 ejercicios para trabajar pecho",
+    time: "hace 2 semanas",
   },
   {
     img: img2,
-    name: "James Bond",
-    noti: "has received Samsung gadget for charging battery.",
-    time: "30 minutes ago",
+    name: "Sawalito",
+    noti: "ha publicado 6 desayunos vegetarianos",
+    time: "hace 4 días",
   },
   {
     img: img3,
-    name: "Iron Man",
-    noti: "has ordered Apple smart watch, samsung Gear 2500mh battery.",
-    time: "2 hours ago",
+    name: "Dayana",
+    noti: "ha publicado Tips para dormir mejor",
+    time: "hace 6 días",
   },
 ];

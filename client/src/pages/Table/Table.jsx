@@ -8,27 +8,27 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
 
-function createData(name, trackingId, date, status) {
-  return { name, trackingId, date, status };
+function createData(name, trackingId, fecha, Estado) {
+  return { name, trackingId, fecha, Estado };
 }
 
 const rows = [
-  createData("Lasania Chiken Fri", 18908424, "2 March 2022", "Approved"),
-  createData("Big Baza Bang ", 18908424, "2 March 2022", "Pending"),
-  createData("Mouth Freshner", 18908424, "2 March 2022", "Approved"),
-  createData("Cupcake", 18908421, "2 March 2022", "Delivered"),
+  createData("Nutriólogo", 18908424, "2 Abril 2023", "Completada"),
+  createData("Médico ", 18908424, "31 Abril 2023", "Pendiente"),
+  createData("Entrenador", 18908424, "5 Abril 2023", "Completada"),
+  createData("Nutriólogo", 18908421, "...", "Sin agendar"),
 ];
 
 
-const makeStyle=(status)=>{
-  if(status === 'Approved')
+const makeStyle=(Estado)=>{
+  if(Estado === 'Completada')
   {
     return {
       background: 'rgb(145 254 159 / 47%)',
       color: 'green',
     }
   }
-  else if(status === 'Pending')
+  else if(Estado === 'Pendiente')
   {
     return{
       background: '#ffadad8f',
@@ -46,7 +46,7 @@ const makeStyle=(status)=>{
 export default function BasicTable() {
   return (
       <div className="Table">
-      <h3>Recent Orders</h3>
+      <h3>Citas: </h3>
         <TableContainer
           component={Paper}
           style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -54,10 +54,10 @@ export default function BasicTable() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Product</TableCell>
-                <TableCell align="left">Tracking ID</TableCell>
-                <TableCell align="left">Date</TableCell>
-                <TableCell align="left">Status</TableCell>
+                <TableCell>Tipo</TableCell>
+                <TableCell align="left">Folio</TableCell>
+                <TableCell align="left">Fecha</TableCell>
+                <TableCell align="left">Estado</TableCell>
                 <TableCell align="left"></TableCell>
               </TableRow>
             </TableHead>
@@ -71,11 +71,11 @@ export default function BasicTable() {
                     {row.name}
                   </TableCell>
                   <TableCell align="left">{row.trackingId}</TableCell>
-                  <TableCell align="left">{row.date}</TableCell>
+                  <TableCell align="left">{row.fecha}</TableCell>
                   <TableCell align="left">
-                    <span className="status" style={makeStyle(row.status)}>{row.status}</span>
+                    <span className="status" style={makeStyle(row.Estado)}>{row.Estado}</span>
                   </TableCell>
-                  <TableCell align="left" className="Details">Details</TableCell>
+                  <TableCell align="left" className="Details">Detalles</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -14,9 +14,7 @@ const FeatureSection2 = () => {
                 <FeatureText>
                     <h2>Morhealth en Web</h2>
                     <p>
-                        Descripción detallada de la funcionalidad de la aplicación. Explica cómo
-                        la función específica mejora la experiencia del usuario y cómo se
-                        diferencia de las aplicaciones similares disponibles en el mercado.
+                    Morhealth es una plataforma web integral que se centra en mejorar y mantener un estilo de vida saludable a través de módulos de nutrición y ejercicio. Los usuarios pueden explorar y personalizar recetas nutritivas, adaptadas a sus necesidades dietéticas y preferencias personales, así como descubrir rutinas de ejercicio específicas para alcanzar sus objetivos de fitness. La plataforma ofrece una amplia biblioteca de recetas saludables y planes de alimentación, junto con rutinas de ejercicios detalladas, desde principiantes hasta avanzados, para todas las disciplinas y objetivos. MorHealth hace que la gestión de tu bienestar sea accesible y eficiente, proporcionándote las herramientas necesarias para llevar una vida activa y equilibrada desde la comodidad de tu hogar.
                     </p>
                 </FeatureText>
             </FeatureSectionWrapper>

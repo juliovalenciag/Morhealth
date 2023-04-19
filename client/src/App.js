@@ -45,6 +45,8 @@ import Header from "./home/common/header/Header";
 import Pie from "./home/common/Pie";
 import Ejercicios from "./fitness/Ejercicios";
 import MhHome from "./pages/MhHome";
+import Profesionales from "./pages/Profesionales";
+import ExerciseDetail from "./fitness/ExerciseDetail";
 
 export const ThemeContext = React.createContext(null);
 
@@ -161,6 +163,10 @@ const router = createBrowserRouter([
         element: <EjerciciosHome />
       },
       {
+        path: '/morhealth/ejercicios/ejercicio/:id',
+        element: <ExerciseDetail />
+      },
+      {
         path: '/morhealth/ejercicios/ejercicio',
         element: <Ejercicios />
       },
@@ -225,6 +231,11 @@ const router = createBrowserRouter([
         path: '/morhealth/nutricion/recetilla/:id',
         element: <RecipeDetails />
       },
+
+      {
+        path: '/morhealth/profesionales',
+        element: <Profesionales/>,
+      }
 
 
     ]

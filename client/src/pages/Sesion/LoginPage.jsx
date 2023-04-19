@@ -88,6 +88,17 @@ const LoginPage = () => {
         }
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            if (signIn) {
+                handleSubmit(e);
+            } else {
+                handleSubmitR(e);
+            }
+        }
+    };
+    
+
 
     return (
         <Container>
@@ -125,7 +136,7 @@ const LoginPage = () => {
                                     <option value="2">Mujer</option>
                                 </Select>
 
-                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} ></SesionInput>
                                 <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
 
                                 <InputContainer>
@@ -185,10 +196,10 @@ const LoginPage = () => {
                 <SesionForm>
                     <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
-                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} ></SesionInput>
+                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} onKeyPress={handleKeyPress} ></SesionInput>
 
                     <InputContainer>
-                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
+                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} onKeyPress={handleKeyPress}/>
                         <ShowPasswordButton
                             onMouseDown={togglePasswordVisibilityOn}
                             onMouseUp={togglePasswordVisibilityOff}
@@ -202,7 +213,7 @@ const LoginPage = () => {
                     <SesionAnchor>¿Olvidaste tu contraseña?</SesionAnchor>
 
 
-                    <SesionButton onClick={handleSubmit} >Ingresar</SesionButton>
+                    <SesionButton onClick={handleSubmit} onKeyPress={handleKeyPress} >Ingresar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignInContainer>

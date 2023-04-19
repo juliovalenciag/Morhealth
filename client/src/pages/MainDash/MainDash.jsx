@@ -25,7 +25,7 @@ const MainDashWrapper = styled.div`
 const MainDash = () => {
   return (
     <MainDashWrapper>
-      <h1>Dashboard</h1>
+      <h1>Bienvenido, Sawalito</h1>
       <Cards />
       <Table />
     </MainDashWrapper>

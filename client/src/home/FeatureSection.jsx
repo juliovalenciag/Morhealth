@@ -12,9 +12,7 @@ const FeatureSection = () => {
                 <FeatureText>
                     <h2>Morhealth en Android</h2>
                     <p>
-                        Descripción detallada de la funcionalidad de la aplicación. Explica cómo
-                        la función específica mejora la experiencia del usuario y cómo se
-                        diferencia de las aplicaciones similares disponibles en el mercado.
+                    Es una aplicación móvil innovadora diseñada para ayudarte a monitorear y mejorar tu salud y bienestar en tiempo real. La aplicación permite a los usuarios registrar métricas de salud esenciales, como peso, presión arterial y niveles de glucosa, además de realizar un seguimiento de su sueño y consumo de agua diario. Con Morhealth en tu dispositivo Android, puedes llevar un control completo de tus hábitos de sueño, asegurándote de que descanses lo suficiente y obtengas información útil para mejorar la calidad de tu sueño. Además, la aplicación te ayuda a mantenerte hidratado mediante recordatorios para beber agua y monitorear tu consumo a lo largo del día. Morhealth en Android se convierte en tu compañero ideal para llevar una vida saludable, ofreciendo información valiosa y herramientas personalizadas para mantenerte en el camino correcto hacia un bienestar óptimo.
                     </p>
                     <GooglePlayStore src={GooglePlayStoreImage} alt="Google Play Store" />
                 </FeatureText>

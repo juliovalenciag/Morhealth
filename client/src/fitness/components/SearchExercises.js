@@ -42,10 +42,7 @@ const SearchExercises = ({setExercises, bodyPart, setBodyPart}) => {
 
   return (
     <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
-    <Typography fontWeight={700} sx={{ fontSize: { lg: '44px', xs: '30px' } }} mb="49px" textAlign="center">
-      La fuerza no viene de una capacidad física.  <br /> Viene de una voluntad indomable
-      </Typography>
-      <Box position="relative" mb="72px">
+      <Box position="relative" mb="72px" border='10px'>
         <TextField
           height="76px"
           sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '.5px' }, width: { lg: '1170px', xs: '350px' }, backgroundColor: '#fff', borderRadius: '0px' }}

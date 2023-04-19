@@ -32,11 +32,11 @@ const RightSide = () => {
   return (
     <RightSideWrapper>
       <div>
-        <h3>Updates</h3>
+        <h3>Blog</h3>
         <Updates />
       </div>
       <div>
-        <h3>Customer Review</h3>
+        <h3>Progreso General</h3>
         <CustomerReview />
       </div>
     </RightSideWrapper>
