@@ -37,25 +37,23 @@ import CreateNutritionPlan from './fitness/nutrition/CreateNutritionPlan'
 import NutritionPlanDetails from './fitness/nutrition/NutritionPlanDetails'
 import NutritionPlansList from './fitness/nutrition/NutritionPlansList'
 import Recetas from "./nutricion/Recetas";
-import MorshealthHome from "./pages/MorshealthHome";
 import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
 import LoginPage from "./pages/Sesion/LoginPage";
-import  DetailsPages  from "./Blog/details/DetailsPages";
-import { Create } from "./Blog/components/create/Create";
+import DetailsPages from "./Blog/details/DetailsPages";
 import EjerciciosHome from "./pages/EjerciciosHome";
 import Header from "./home/common/header/Header";
-import Footer from "./home/common/footer/Footer";
 import Pie from "./home/common/Pie";
 import Ejercicios from "./fitness/Ejercicios";
+import MhHome from "./pages/MhHome";
 
 export const ThemeContext = React.createContext(null);
 
 const LayoutInicio = () => {
   return (
     <>
-      <Header/>
+      <Header />
       <Outlet />
-    <Pie/>
+      <Pie />
     </>
   )
 }
@@ -84,24 +82,24 @@ const router = createBrowserRouter([
 
     ]
   },
-  
+
   {
     path: '/morhealth',
     element: <LayoutPrincipal />,
     children: [
       {
         path: '/morhealth',
-        element: <MorshealthHome />
+        element: <MhHome />
       },
 
 
       {
         path: '/morhealth/blog',
-        element: <BlogHome/>
+        element: <BlogHome />
       },
       {
         path: '/morhealth/blog/post/:id',
-        element: <DetailsPages/>
+        element: <DetailsPages />
       },
       {
         path: '/morhealth/blog/write',
