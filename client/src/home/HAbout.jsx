@@ -11,18 +11,18 @@ const HAbout = () => {
   const plans = [
     {
       title: 'Mensual',
-      price: '$9.99',
-      description: 'Acceso a contenido básico y soporte por correo electrónico.',
+      price: '$149',
+      description: 'Prueba 14 días gratis',
     },
     {
       title: 'Trimestral',
-      price: '$19.99',
-      description: 'Acceso a todo el contenido, soporte prioritario y descuentos exclusivos.',
+      price: '$399',
+      description: 'Prueba 14 días gratis',
     },
     {
       title: 'Anual',
-      price: '$49.99',
-      description: 'Acceso a contenido empresarial, soporte dedicado ',
+      price: '$1499',
+      description: 'Prueba 14 días gratis',
     },
   ];
 
