@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Route, Outlet, Form } from 'react-router-dom';
 import './App.css';
 import Home from './home/Home';
-import { translate } from 'libretranslate';
+
+
+import * as LibreTranslate from 'libretranslate';
+
 
 
 import Principal from "./pages/Principal";
@@ -241,7 +244,7 @@ const router = createBrowserRouter([
 
       {
         path: '/morhealth/profesionales',
-        element: <Profesionales/>,
+        element: <Profesionales />,
       }
 
 
@@ -257,8 +260,21 @@ const router = createBrowserRouter([
 
 function App() {
 
- 
+  const [availableLanguages, setAvailableLanguages] = useState([]);
 
+  const fetchLanguages = async () => {
+    try {
+      const response = await fetch('https://libretranslate.de/languages');
+      const languages = await response.json();
+      setAvailableLanguages(languages);
+    } catch (err) {
+      console.error("Error al obtener los idiomas:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchLanguages();
+  }, []);
   const [theme, setTheme] = useState("light");
   const themeStyle = theme === "light" ? lightTheme : darkTheme;
 

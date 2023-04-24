@@ -20,7 +20,7 @@ import { LanguageContext } from "../../context/languageContext";
 
 const Sidebar = () => {
 
-    const { currentLanguage, setCurrentLanguage } = useContext(LanguageContext);
+    const { currentLanguage, changeLanguage } = useContext(LanguageContext);
 
     const availableLanguages = [
         { code: "en", label: "English" },
@@ -136,19 +136,21 @@ const Sidebar = () => {
             <SLinkContainer displayMobile={!sidebarOpen}>
                 <SLink to="/morhealth" style={!sidebarOpen ? { width: `fit-content` } : {}}>
                     <SLinkIcon><BiWorld /></SLinkIcon>
-                    {sidebarOpen && <SLinkLabel>Cambiar idioma
-                        <Select
-                            value={currentLanguage}
-                            onChange={(e) => setCurrentLanguage(e.target.value)}
-                            style={!sidebarOpen ? { width: `fit-content` } : {}}
-                        >
-                            {availableLanguages.map((language) => (
-                                <MenuItem key={language.code} value={language.code}>
-                                    {language.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </SLinkLabel>}
+                    {sidebarOpen && (
+                        <div>
+                            <Select
+                                value={currentLanguage}
+                                onChange={(e) => changeLanguage(e.target.value)}
+                                style={!sidebarOpen ? { width: `fit-content` } : {}}
+                            >
+                                {availableLanguages.map((language) => (
+                                    <MenuItem key={language.code} value={language.code}>
+                                        {language.label}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                    )}
                 </SLink>
             </SLinkContainer>
         </SSidebar>
