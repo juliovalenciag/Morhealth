@@ -4,23 +4,28 @@ import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
 
-    //Checar si existe el usuario
+    // Checar si existe el usuario
     const q = "SELECT * FROM users WHERE email = ? OR username = ?"
 
-    db.query(q, [req.body.email, req.body.name], (err, data) => {
+    db.query(q, [req.body.email, req.body.username], (err, data) => {
         if (err) return res.json(err)
         if (data.length) return res.status(409).json("Usuario ya existe");
 
-        //Hash contraseña
-
+        // Hash contraseña
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-        const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)"
+        const q = "INSERT INTO users(`username`, `name`, `lastname_p`, `lastname_m`, `gender`, `age`, `email`, `password`, `premium`) VALUES (?)"
         const values = [
             req.body.username,
+            req.body.name,
+            req.body.lastname_p,
+            req.body.lastname_m,
+            req.body.gender,
+            req.body.age,
             req.body.email,
             hash,
+            req.body.premium
         ]
 
         db.query(q, [values], (err, data) => {
@@ -29,16 +34,17 @@ export const register = (req, res) => {
         });
     });
 }
+
 export const login = (req, res) => {
 
-    //checar usuario
+    // Checar usuario
     const q = "SELECT * FROM users WHERE username = ?"
 
     db.query(q, [req.body.username], (err, data) => {
         if (err) return res.json(err);
         if (data.length === 0) return res.status(404).json("Usuario no encontrado");
 
-        //checar contraseña
+        // Checar contraseña
         const isPasswordCorrect = bcrypt.compareSync(
             req.body.password,
             data[0].password
@@ -47,7 +53,7 @@ export const login = (req, res) => {
         if (!isPasswordCorrect)
             return res.status(400).json("Usuario o contraseña incorrectos");
 
-        const token = jwt.sign({ iduser: data[0].iduser, iat: Math.floor(Date.now() / 1000) }, "jwtkey");
+        const token = jwt.sign({ iduser: data[0].user_id, iat: Math.floor(Date.now() / 1000) }, "jwtkey");
         console.log("Token generado:", token);
         const { password, ...other } = data[0];
 
@@ -59,6 +65,7 @@ export const login = (req, res) => {
             .json(other)
     })
 }
+
 export const logout = (req, res) => {
     res.clearCookie("access_tokens", {
         sameSite: "none",

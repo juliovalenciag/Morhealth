@@ -93,7 +93,6 @@ const Sidebar = () => {
                         {sidebarOpen && (
                             <>
                                 <SLinkLabel>{label}</SLinkLabel>
-                                {/* if notifications are at 0 or null, do not display */}
                                 {!!notification && (
                                     <SLinkNotification>{notification}</SLinkNotification>
                                 )}
