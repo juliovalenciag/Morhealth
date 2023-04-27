@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Route, Outlet, Form } from 'react-router-dom';
+
+import PrivateRoute from "./PrivateRoute";
+
 import './App.css';
 import Home from './home/Home';
 
-
-import * as LibreTranslate from 'libretranslate';
 
 
 
@@ -15,7 +16,6 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import { GlobalStyle } from "./styles/globalStyles";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
-import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 import Blog from "./Blog/Blog"
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
 
   {
     path: '/morhealth',
-    element: <LayoutPrincipal />,
+    element: <PrivateRoute />,
     children: [
       {
         path: '/morhealth',
@@ -247,7 +247,7 @@ const router = createBrowserRouter([
         element: <Profesionales />,
       }
 
-
+      
     ]
   },
   {
@@ -260,21 +260,6 @@ const router = createBrowserRouter([
 
 function App() {
 
-  const [availableLanguages, setAvailableLanguages] = useState([]);
-
-  const fetchLanguages = async () => {
-    try {
-      const response = await fetch('https://libretranslate.de/languages');
-      const languages = await response.json();
-      setAvailableLanguages(languages);
-    } catch (err) {
-      console.error("Error al obtener los idiomas:", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchLanguages();
-  }, []);
   const [theme, setTheme] = useState("light");
   const themeStyle = theme === "light" ? lightTheme : darkTheme;
 

@@ -9,6 +9,12 @@ import { v } from '../../styles/variables';
 
 const LoginPage = () => {
 
+    const API_URL = "http://localhost:8800/api/auth";
+
+    const apiClient = axios.create({
+        baseURL: API_URL,
+    });
+
     const [inputs, setInputs] = useState({
         username: "",
         email: "",
@@ -40,6 +46,16 @@ const LoginPage = () => {
         toggle(false);
     };
 
+    const handleEnterKeyPress = (e, callback) => {
+        if (e.key === 'Enter') {
+            callback(e);
+        }
+    };
+
+    const handleFormSubmit = (e, isSignIn) => {
+        e.preventDefault();
+        isSignIn ? handleSubmit(e) : handleSubmitR(e);
+    };
 
     const togglePasswordVisibilityOn = (event) => {
         event.preventDefault();
@@ -81,11 +97,14 @@ const LoginPage = () => {
     const handleSubmitR = async e => {
         e.preventDefault()
         try {
-            await axios.post("/auth/registro", inputs)
+            console.log("Submitting registration", inputs);
+            await apiClient.post("/registro", inputs);
             toggle(true);
         } catch (err) {
             setError(err.response.data);
+            console.log(err);
         }
+        console.log(inputs);
     }
 
     const handleKeyPress = (e) => {
@@ -97,7 +116,7 @@ const LoginPage = () => {
             }
         }
     };
-    
+
 
 
     return (
@@ -105,8 +124,8 @@ const LoginPage = () => {
 
 
             <SignUpContainer signIn={signIn}>
-                <SesionForm>
-                    
+                <SesionForm onSubmit={(e) => handleFormSubmit(e, !signIn)}>
+
                     {
                         activeRegistration === "user" ? (
                             <>
@@ -185,7 +204,7 @@ const LoginPage = () => {
                     }
 
 
-                    <SesionButton onClick={handleSubmitR}>Registrar</SesionButton>
+                    <SesionButton type="submit">Registrar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignUpContainer>
@@ -193,13 +212,13 @@ const LoginPage = () => {
 
 
             <SignInContainer signIn={signIn}>
-                <SesionForm>
+                <SesionForm onSubmit={(e) => handleFormSubmit(e, signIn)}>
                     <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
-                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} onKeyPress={handleKeyPress} ></SesionInput>
+                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
 
                     <InputContainer>
-                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} onKeyPress={handleKeyPress}/>
+                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} />
                         <ShowPasswordButton
                             onMouseDown={togglePasswordVisibilityOn}
                             onMouseUp={togglePasswordVisibilityOff}
@@ -213,7 +232,7 @@ const LoginPage = () => {
                     <SesionAnchor>¿Olvidaste tu contraseña?</SesionAnchor>
 
 
-                    <SesionButton onClick={handleSubmit} onKeyPress={handleKeyPress} >Ingresar</SesionButton>
+                    <SesionButton type="submit">Ingresar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignInContainer>

@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
 
+    console.log("Register request received:", req.body);
+
     // Checar si existe el usuario
     const q = "SELECT * FROM users WHERE email = ? OR username = ?"
 
@@ -15,7 +17,7 @@ export const register = (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-        const q = "INSERT INTO users(`username`, `name`, `lastname_p`, `lastname_m`, `gender`, `age`, `email`, `password`, `premium`) VALUES (?)"
+        const q = "INSERT INTO users(`username`, `name`, `lastname_p`, `lastname_m`, `gender`, `age`, `email`, `password`) VALUES (?)"
         const values = [
             req.body.username,
             req.body.name,
@@ -24,9 +26,9 @@ export const register = (req, res) => {
             req.body.gender,
             req.body.age,
             req.body.email,
-            hash,
-            req.body.premium
-        ]
+            hash
+        ];
+
 
         db.query(q, [values], (err, data) => {
             if (err) return res.json(err);

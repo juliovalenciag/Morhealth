@@ -1,27 +1,36 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-export const AuthContext = createContext()
+const API_URL = "http://localhost:8800/api/auth";
 
-export const AuthContextProvider = ({children})=>{
-    const [currentUser,setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
+const apiClient = axios.create({
+    baseURL: API_URL,
+});
 
-    const login = async(inputs)=>{
-        const res = await axios.post("/auth/login", inputs)
+export const AuthContext = createContext();
+
+export const AuthContextProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(
+        JSON.parse(localStorage.getItem("user")) || null
+    );
+
+    const login = async (inputs) => {
+        const res = await apiClient.post("/login", inputs);
         setCurrentUser(res.data);
     };
-    const logout = async(inputs)=>{
-        await axios.post("/auth/logout")
+
+    const logout = async (inputs) => {
+        await apiClient.post("/logout");
         setCurrentUser(null);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem("user", JSON.stringify(currentUser));
     }, [currentUser]);
 
     return (
-    <AuthContext.Provider value={{currentUser, login, logout}}>
-        {children}
-    </AuthContext.Provider>
-    )
-}
+        <AuthContext.Provider value={{ currentUser, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};

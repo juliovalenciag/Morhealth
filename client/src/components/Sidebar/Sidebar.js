@@ -20,13 +20,6 @@ import { LanguageContext } from "../../context/languageContext";
 
 const Sidebar = () => {
 
-    const { currentLanguage, changeLanguage } = useContext(LanguageContext);
-
-    const availableLanguages = [
-        { code: "en", label: "English" },
-        { code: "es", label: "Español" },
-        { code: "fr", label: "Français" },
-    ];
 
 
     const { currentUser, logout } = useContext(AuthContext);
@@ -46,7 +39,7 @@ const Sidebar = () => {
     };
 
     return (
-        <SSidebar isOpen={sidebarOpen} availableLanguages={availableLanguages}>
+        <SSidebar isOpen={sidebarOpen}>
             <>
                 <SSidebarButton
                     isOpen={sidebarOpen}
@@ -137,17 +130,7 @@ const Sidebar = () => {
                     <SLinkIcon><BiWorld /></SLinkIcon>
                     {sidebarOpen && (
                         <div>
-                            <Select
-                                value={currentLanguage}
-                                onChange={(e) => changeLanguage(e.target.value)}
-                                style={!sidebarOpen ? { width: `fit-content` } : {}}
-                            >
-                                {availableLanguages.map((language) => (
-                                    <MenuItem key={language.code} value={language.code}>
-                                        {language.label}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                            <h2>Cambiar idioma</h2>
                         </div>
                     )}
                 </SLink>
