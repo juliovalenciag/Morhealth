@@ -97,14 +97,12 @@ const LoginPage = () => {
     const handleSubmitR = async e => {
         e.preventDefault()
         try {
-            console.log("Submitting registration", inputs);
             await apiClient.post("/registro", inputs);
             toggle(true);
         } catch (err) {
             setError(err.response.data);
             console.log(err);
         }
-        console.log(inputs);
     }
 
     const handleKeyPress = (e) => {

@@ -73,6 +73,7 @@ const RecipeDetail = (props) => {
                         <NutritionSection>
                             <NutritionItem>
                                 Calorías: {recipeNutrition.calories}
+                                
                             </NutritionItem>
                             <NutritionItem>
                                 Carbohidratos: {recipeNutrition.carbs}

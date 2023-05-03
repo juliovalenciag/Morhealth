@@ -1,8 +1,9 @@
-import React from "react";
+import React , {useContext} from "react";
 import Cards from "../Cards/Cards";
 import Table from "../Table/Table";
 import "./MainDash.css";
 import styled from "styled-components";
+import { AuthContext } from "../../context/authContext";
 
 const MainDashWrapper = styled.div`
   grid-area: maindash;
@@ -23,9 +24,12 @@ const MainDashWrapper = styled.div`
 
 
 const MainDash = () => {
+
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <MainDashWrapper>
-      <h1>Bienvenido, Sawalito</h1>
+      <h1>Bienvenido, {currentUser?.username}</h1>
       <Cards />
       <Table />
     </MainDashWrapper>

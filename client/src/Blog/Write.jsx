@@ -5,11 +5,17 @@ import "react-quill/dist/quill.snow.css";
 import styled from 'styled-components';
 import Header from './components/header/Header';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import moment from "moment";
 
 
 const Write = () => {
+
+    const API_URL = "http://localhost:8800/api";
+
+    const apiClient = axios.create({
+        baseURL: API_URL,
+    });
 
     const state = useLocation().state;
 
@@ -24,7 +30,7 @@ const Write = () => {
         try {
             const formData = new FormData();
             formData.append("file", file);
-            const res = await axios.post("/upload", formData);
+            const res = await apiClient.post("/upload", formData);
             return res.data;
         } catch (err) {
             console.log(err);
@@ -38,13 +44,13 @@ const Write = () => {
 
         try {
             state
-                ? await axios.put(`/posts/${state.idpost}`, {
+                ? await apiClient.put(`/posts/${state.idpost}`, {
                     title,
                     desc: value,
                     cat,
                     img: file ? imgUrl : "",
                 })
-                : await axios.post(`/posts/`, {
+                : await apiClient.post(`/posts/`, {
                     title,
                     desc: value,
                     cat,
@@ -81,7 +87,9 @@ const Write = () => {
                         <FileLabel htmlFor='file'>Subir foto</FileLabel>
                         <Buttons>
                             <Button>Guardar como borrador</Button>
-                            <Button onClick={handleClick}>Publicar</Button>
+                            <Link to='/morhealth/blog'>
+                                <Button onClick={handleClick} >Publicar</Button>
+                            </Link>
                         </Buttons>
                     </MenuItem>
                     <MenuItem>

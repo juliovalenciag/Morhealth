@@ -41,6 +41,8 @@ li {
 .row {
   width: 50%;
 }
+
+/*
 button {
   padding: 17px 30px;
   background-color: #fff;
@@ -53,12 +55,14 @@ button {
   box-shadow: 0 24px 36px -11px rgb(0 0 0 / 9%);
   transition: 0.5s;
 }
+
 button i {
   margin-left: 20px;
 }
 button:hover {
   box-shadow: none;
 }
+*/
 .primary-btn {
   background-color: #031728;
   color: #fff;

@@ -16,10 +16,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import { GlobalStyle } from "./styles/globalStyles";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
-import Register from "./pages/Register";
 
-import Blog from "./Blog/Blog"
-import Single from "./Blog/Single";
 import Write from "./Blog/Write";
 import Nutricion from "./pages/Nutricion";
 import Searched from "./nutricion/Searched";
@@ -113,19 +110,6 @@ const router = createBrowserRouter([
         path: '/morhealth/blog/write',
         element: <Write />
       },
-      {
-        path: '/morhealth/blog/salud',
-        element: <Blog />
-      },
-      {
-        path: '/morhealth/blog/nutricion',
-        element: <Blog />
-      },
-      {
-        path: '/morhealth/blog/ejercicios',
-        element: <Blog />
-      },
-
 
 
       {
@@ -169,7 +153,7 @@ const router = createBrowserRouter([
         element: <EjerciciosHome />
       },
       {
-        path: '/morhealth/ejercicios/:id',
+        path: '/morhealth/ejercicios/ejercicio/:id',
         element: <ExerciseDetail />
       },
       {

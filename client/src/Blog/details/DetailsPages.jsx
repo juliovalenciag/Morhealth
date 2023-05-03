@@ -10,8 +10,9 @@ import { AuthContext } from '../../context/authContext';
 import DOMPurify from "dompurify";
 
 const DetailsPages = () => {
+  const { currentUser } = useContext(AuthContext);
 
-  //Para la descripcion del post
+  {/*
   const [post, setPost] = useState({});
 
   //Para los posts relacionados
@@ -23,7 +24,6 @@ const DetailsPages = () => {
 
   const postId = location.pathname.split("/")[4];
 
-  const { currentUser } = useContext(AuthContext);
 
 
 
@@ -55,6 +55,7 @@ const DetailsPages = () => {
   }, [post.cat]);
 
 
+  
   const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${postId}`);
@@ -63,8 +64,45 @@ const DetailsPages = () => {
       console.log(err);
     }
   }
+  
+*/}
 
+  const post = [
+    {
+      id: 1,
+      title: "Los mejores alimentos para aumentar tu energia",
+      desc: " Aquí hay algunos alimentos que pueden ayudarte a aumentar tu energía: \nPlátanos: Los plátanos son ricos en carbohidratos y potasio, lo que los convierte en una excelente opción para aumentar la energía. \nFrutos secos: Los frutos secos son ricos en proteínas y grasas saludables, lo que los convierte en una excelente opción para aumentar la energía. \nHuevos: Los huevos son ricos en proteínas y grasas saludables, lo que los convierte en una excelente opción para aumentar la energía.\nAvena: La avena es rica en carbohidratos complejos y fibra, lo que la convierte en una excelente opción para aumentar la energía.\nYogur griego: El yogur griego es rico en proteínas y calcio, lo que lo convierte en una excelente opción para aumentar la energía.\n",
+      img: "https://images.unsplash.com/photo-1565061338076-3d346bb4bfc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1588&q=80",
+      userImg: "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    },
+  ];
 
+  const posts = [
+    {
+      id: 1,
+      title: "Cómo mantener una dieta saludable en la oficina",
+      desc: "Para mantener una dieta saludable, es importante comer una variedad de alimentos nutritivos y limitar los alimentos procesados y azucarados. Aquí hay algunos consejos para ayudarte a mantener una dieta saludable:",
+      img: "https://images.unsplash.com/photo-1522152302542-71a8e5172aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1608&q=80",
+    },
+    {
+      id: 2,
+      title: "Cómo preparar comidas saludables en 30 minutos",
+      desc: "Aquí hay algunos consejos para preparar comidas saludables en 30 minutos: Planifica tus comidas con anticipación: Antes de comenzar a cocinar, asegúrate de tener todos los ingredientes que necesitas y de haber planificado tu comida con anticipación. Usa ingredientes simples: Utiliza ingredientes simples y fáciles de preparar para ahorrar tiempo.",
+      img: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    },
+    {
+      id: 4,
+      title: "Como mantener una dieta saludable mientras viajas",
+      desc: "Mantener una dieta saludable mientras viajas puede ser un desafío, pero aquí hay algunos consejos que pueden ayudarte: Planifica con anticipación: Antes de salir de viaje, investiga los restaurantes y supermercados locales para encontrar opciones saludables. Empaca tus propios bocadillos: Empaca bocadillos saludables como frutas, nueces y barras de granola para tener algo que comer en caso de emergencia.",
+      img: "https://images.unsplash.com/photo-1564403256236-8f6929897a47?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1351&q=80",
+    },
+    {
+      id: 5,
+      title: "Como preparar licuados saludables para el desayuno",
+      desc: "Aquí hay algunas recetas de licuados saludables para el desayuno: Licuado de plátano y fresa: Mezcla 1 plátano maduro, 1 taza de fresas congeladas, 1 taza de leche de almendras sin azúcar y 1 cucharada de miel en una licuadora hasta que quede suave.",
+      img: "https://images.unsplash.com/photo-1626078436898-7c7953c04778?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    },
+  ];
 
   return (
     <>
@@ -75,34 +113,34 @@ const DetailsPages = () => {
           <Container>
 
             <PostImgContainer>
-              <PostImg src={post?.img} />
+              <PostImg src={post[0].img} />
             </PostImgContainer>
 
 
             <TitleAuthorContainer>
-              <h1>{post.title}</h1>
+              <h1>{post[0].title}</h1>
               <AuthorSection>
 
-                {post.userImg &&
-                  <AuthorImage src={post.userImg} alt="" />
+                {post[0].userImg &&
+                  <AuthorImage src={post[0].userImg} alt="" />
                 }
 
-                <p>Autor: {post.username}</p>
+                <p>Autor: {post[0].username} {currentUser?.username} </p>
               </AuthorSection>
             </TitleAuthorContainer>
 
             <PublishButtonsContainer>
-              <p>Publicado: {moment(post.date).fromNow()}</p>
+              <p>Publicado: {moment(post[0].date).fromNow()}</p>
 
-              {currentUser.username === post.username && (
+              {currentUser.username === post[0].username && (
                 <Buttons>
                   <Button>
-                    <Link to='/morhealth/blog/write?=2' state={post}>
+                    <Link to='/morhealth/blog/write?=2' state={post[0]}>
                       <BsPencilSquare />
                     </Link>
                   </Button>
                   <Button>
-                    <AiOutlineDelete onClick={handleDelete} />
+                    <AiOutlineDelete />
                   </Button>
                 </Buttons>
               )}
@@ -110,11 +148,7 @@ const DetailsPages = () => {
 
             <PostContent  >
 
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(post.desc),
-                }}
-              ></p>
+              <p>{post[0].desc}</p>
             </PostContent>
 
           </Container>
@@ -230,7 +264,7 @@ const PostImg = styled.img`
   @media (max-width: 768px) {
     height: 300px;
   }
-}
+
 `;
 
 const Buttons = styled.div`

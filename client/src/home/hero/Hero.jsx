@@ -14,7 +14,7 @@ const Hero = () => {
         <div className='container'>
           <div className='row'>
             <Heading subtitle='Bienvenido a ' title='MORHEALTH' />
-            <p>Tu compañero de salud al alcance de tus manos</p>
+            <p>Más salud, más vida</p>
             <div className='button'>
              
               

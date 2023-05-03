@@ -7,6 +7,13 @@ import axios from "axios";
 
 const Card = () => {
 
+  const API_URL = "http://localhost:8800/api";
+
+  const apiClient = axios.create({
+      baseURL: API_URL,
+  });
+
+{/*
   const [posts, setPosts] = useState([]);
 
   const cat = useLocation().search
@@ -15,7 +22,7 @@ const Card = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts${cat}`);
+        const res = await apiClient.get(`/posts${cat}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);
@@ -28,30 +35,55 @@ const Card = () => {
     const doc = new DOMParser().parseFromString(html, "text/html")
     return doc.body.textContent
   }
+*/}
 
-
-  {/*
+  
   const posts = [
     {
       id: 1,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      title: "Los mejores alimentos para aumentar tu energia",
+      desc: " Aquí hay algunos alimentos que pueden ayudarte a aumentar tu energía: Plátanos: Los plátanos son ricos en carbohidratos y potasio, lo que los convierte en una excelente opción para aumentar la energía. Frutos secos: Los frutos secos son ricos en proteínas y grasas saludables, lo que los convierte en una excelente opción para aumentar la energía.",
+      img: "https://images.unsplash.com/photo-1565061338076-3d346bb4bfc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1588&q=80",
+    },
+    {
+      id: 4,
+      title: "Cómo mantener una dieta saludable en la oficina",
+      desc: "Para mantener una dieta saludable, es importante comer una variedad de alimentos nutritivos y limitar los alimentos procesados y azucarados. Aquí hay algunos consejos para ayudarte a mantener una dieta saludable:",
+      img: "https://images.unsplash.com/photo-1522152302542-71a8e5172aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1608&q=80",
     },
     {
       id: 2,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      title: "Los mejores ejercicios para tonificar piernas",
+      desc: "Aquí hay algunos ejercicios que puedes hacer para tonificar tus piernas: Sentadillas: Las sentadillas son un gran ejercicio para tonificar los músculos de las piernas. Para hacer una sentadilla, párate con los pies separados al ancho de los hombros y baja lentamente tu cuerpo hacia el suelo, doblando las rodillas y manteniendo la espalda recta. Luego, levántate lentamente. Zancadas: Las zancadas son otro gran ejercicio para tonificar los músculos de las piernas. Para hacer una zancada, da un paso hacia adelante con un pie y baja lentamente tu cuerpo hacia el suelo, doblando las rodillas y manteniendo la espalda recta. Luego, levántate lentamente y repite con la otra pierna",
+      img: "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     },
     {
       id: 3,
-      title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. A possimus excepturi aliquid nihil cumque ipsam facere aperiam at! Ea dolorem ratione sit debitis deserunt repellendus numquam ab vel perspiciatis corporis!",
-      img: "https://images.pexels.com/photos/7008010/pexels-photo-7008010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      title: "Cómo preparar comidas saludables en 30 minutos",
+      desc: "Aquí hay algunos consejos para preparar comidas saludables en 30 minutos: Planifica tus comidas con anticipación: Antes de comenzar a cocinar, asegúrate de tener todos los ingredientes que necesitas y de haber planificado tu comida con anticipación. Usa ingredientes simples: Utiliza ingredientes simples y fáciles de preparar para ahorrar tiempo.",
+      img: "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    },
+    
+    {
+      id: 5,
+      title: "Como mantener una dieta saludable mientras viajas",
+      desc: "Mantener una dieta saludable mientras viajas puede ser un desafío, pero aquí hay algunos consejos que pueden ayudarte: Planifica con anticipación: Antes de salir de viaje, investiga los restaurantes y supermercados locales para encontrar opciones saludables. Empaca tus propios bocadillos: Empaca bocadillos saludables como frutas, nueces y barras de granola para tener algo que comer en caso de emergencia.",
+      img: "https://images.unsplash.com/photo-1564403256236-8f6929897a47?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1351&q=80",
+    },
+    {
+      id: 6,
+      title: "Los mejores ejercicios para quemar grasa abdominal",
+      desc: "Aquí hay algunos ejercicios que pueden ayudarte a reducir la grasa abdominal: Plancha: La plancha es un gran ejercicio para tonificar los músculos abdominales. Para hacer una plancha, acuéstate boca abajo con los antebrazos apoyados en el suelo y levanta tu cuerpo del suelo, manteniendo tu cuerpo recto.",
+      img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    },
+    {
+      id: 7,
+      title: "Como preparar licuados saludables para el desayuno",
+      desc: "Aquí hay algunas recetas de licuados saludables para el desayuno: Licuado de plátano y fresa: Mezcla 1 plátano maduro, 1 taza de fresas congeladas, 1 taza de leche de almendras sin azúcar y 1 cucharada de miel en una licuadora hasta que quede suave.",
+      img: "https://images.unsplash.com/photo-1626078436898-7c7953c04778?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
     },
   ];
-*/}
+
   return (
     <>
       <BlogSection className="blog">
@@ -61,7 +93,10 @@ const Card = () => {
           {posts.map((post) => (
             <CardBox className="box boxItems" key={post.idpost}>
               <div className="img">
-                <img src={`../upload/${post.img}`} alt="" />
+                {/*
+                <img src={`../../public/upload/${post.img}`} alt="" />
+          */}
+          <img src={post.img}/>
               </div>
               <CardDetails className="details">
 
@@ -74,13 +109,14 @@ const Card = () => {
 
                 <StyledLink to={`/morhealth/blog/post/${post.idpost}`} className="link">
                   <h3>{post.title}</h3>
-                  <CardDescription><p>{getText(post.desc.slice(0, 180))}</p>...</CardDescription>
+                  <CardDescription><p>{/*{getText(post.desc.slice(0, 180))}*/} {post.desc.slice(0,180)}</p>...</CardDescription>
                   <ReadMore>Leer más</ReadMore>
                 </StyledLink>
                 <CardDate className="date">
-                  {/*<AiOutlineClockCircle className="icon" /> <label htmlFor="">{item.date}</label>*/}
+                  {/*<AiOutlineClockCircle className="icon" /> <label htmlFor="">{item.date}</label>
                   <AiOutlineComment className="icon" /> <label htmlFor="">27</label>
                   <AiOutlineShareAlt className="icon" /> <label htmlFor="">SHARE</label>
+                  */}
                 </CardDate>
               </CardDetails>
             </CardBox>
