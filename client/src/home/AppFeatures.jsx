@@ -1,8 +1,5 @@
 import React from 'react';
-
-import DeviceImage from '../assets/img/nutricionweb.png';
 import styled from 'styled-components';
-import BackgroundImage from '../assets/img/background-image.jpg';
 
 
 const AppFeatures = () => {

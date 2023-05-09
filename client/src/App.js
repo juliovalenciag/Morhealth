@@ -7,19 +7,13 @@ import './App.css';
 import Home from './home/Home';
 
 
-
-
-import Principal from "./pages/Principal";
-import Layout from './components/Layout/Layout'
-import Sidebar from "./components/Sidebar/Sidebar";
-
 import { GlobalStyle } from "./styles/globalStyles";
 import { darkTheme, lightTheme } from "./styles/theme";
 import { ThemeProvider } from "styled-components";
-import Register from "./pages/Register";
+
 
 import Blog from "./Blog/Blog"
-import Single from "./Blog/Single";
+
 import Write from "./Blog/Write";
 import Nutricion from "./pages/Nutricion";
 import Searched from "./nutricion/Searched";
@@ -54,6 +48,9 @@ import Profesionales from "./pages/Profesionales";
 import ExerciseDetail from "./fitness/ExerciseDetail";
 import RecipeDetail from "./nutricion/RecipeDetail";
 
+
+import UserLayout from './layouts/user'
+
 export const ThemeContext = React.createContext(null);
 
 const LayoutInicio = () => {
@@ -66,16 +63,6 @@ const LayoutInicio = () => {
   )
 }
 
-const LayoutPrincipal = () => {
-  return (
-    <>
-
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
-  )
-}
 
 
 const router = createBrowserRouter([
@@ -93,11 +80,11 @@ const router = createBrowserRouter([
 
   {
     path: '/morhealth',
-    element: <PrivateRoute />,
+    element: <UserLayout />,
     children: [
       {
         path: '/morhealth',
-        element: <MhHome />
+        element: <UserLayout />
       },
 
 

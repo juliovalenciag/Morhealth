@@ -4,10 +4,7 @@
   margin: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8f8f8;
-}
+
 /*------------global-----------*/
 .container {
   max-width: 85%;
@@ -30,7 +27,6 @@ body {
 .icon:hover {
   cursor: pointer;
   background-color: #031728;
-  color: #fff;
 }
 a {
   text-decoration: none;
