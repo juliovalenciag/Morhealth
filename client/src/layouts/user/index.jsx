@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar";
 import Footer from "../../components/footer/Footer";
 import routes from "../../routes";
 
-export default function Admin(props) {
+export default function User(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
@@ -21,7 +21,6 @@ export default function Admin(props) {
   }, [location.pathname]);
 
   const getActiveRoute = (routes) => {
-    let activeRoute = "Principal";
     for (let i = 0; i < routes.length; i++) {
       if (
         window.location.href.indexOf(
@@ -31,30 +30,33 @@ export default function Admin(props) {
         setCurrentRoute(routes[i].name);
       }
     }
-    return activeRoute;
   };
+  
   const getActiveNavbar = (routes) => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
       if (
-        window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+        location.pathname === routes[i].layout + routes[i].path
       ) {
         return routes[i].secondary;
       }
     }
     return activeNavbar;
   };
+
+
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/morhealth") {
         return (
-          <Route path={`/${prop.path}`} element={prop.component} key={key} />
+          <Route path={`/${prop.path}`} element={<prop.component />} key={key} />
         );
       } else {
         return null;
       }
     });
   };
+  console.log(routes);
 
   document.documentElement.dir = "ltr";
   return (
@@ -79,14 +81,16 @@ export default function Admin(props) {
               {...rest}
             />
             <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
+
               <Routes>
                 {getRoutes(routes)}
 
                 <Route
-                  path="/"
-                  element={<Navigate to="/" replace />}
+                  path="/morhealth/*"
+                  element={<Navigate to="/morhealth" replace />}
                 />
               </Routes>
+              
             </div>
             <div className="p-3">
 

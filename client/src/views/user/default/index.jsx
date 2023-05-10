@@ -18,10 +18,10 @@ import tableDataComplex from "./variables/tableDataComplex.json";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="max-w-full">
       {/* Card widget */}
 
-      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+      <div className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
           title={"Earnings"}
@@ -74,7 +74,7 @@ const Dashboard = () => {
 
         {/* Traffic chart & Pie Chart */}
 
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <DailyTraffic />
           <PieChartCard />
         </div>
@@ -88,7 +88,7 @@ const Dashboard = () => {
 
         {/* Task chart & Calendar */}
 
-        <div className="grid grid-cols-1 gap-5 rounded-[20px] md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <TaskCard />
           <div className="grid grid-cols-1 rounded-[20px]">
             <MiniCalendar />

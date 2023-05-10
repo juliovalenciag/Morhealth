@@ -29,5 +29,4 @@ const WeeklyRevenue = () => {
     </Card>
   );
 };
-
 export default WeeklyRevenue;
