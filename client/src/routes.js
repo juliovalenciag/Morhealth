@@ -17,31 +17,31 @@ import {
 
 const routes = [
   {
-    name: "Principal",
+    name: "Inicio",
     layout: "/morhealth",
     path: "",
     icon: <MdHome className="h-6 w-6" />,
     component: Dashboard,
   },
   {
-    name: "NFT Marketplace",
+    name: "Blog",
     layout: "/morhealth",
-    path: "nft-marketplace",
+    path: "blog",
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
     component: NFTMarketplace,
     secondary: true,
   },
   {
-    name: "Data Tables",
+    name: "Nutrición",
     layout: "/morhealth",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables",
+    path: "nutricion",
     component: DataTables,
   },
   {
-    name: "Profile",
+    name: "Ejercicios",
     layout: "/morhealth",
-    path: "profile",
+    path: "ejercicios",
     icon: <MdPerson className="h-6 w-6" />,
     component: Profile,
   },

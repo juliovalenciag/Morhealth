@@ -49,7 +49,7 @@ import ExerciseDetail from "./fitness/ExerciseDetail";
 import RecipeDetail from "./nutricion/RecipeDetail";
 
 
-import UserLayout from './layouts/user'
+
 
 export const ThemeContext = React.createContext(null);
 
@@ -80,13 +80,13 @@ const router = createBrowserRouter([
 
   {
     path: '/morhealth',
-    element: <UserLayout />,
+    element: <PrivateRoute />,
     children: [
-      {
-        path: '/morhealth',
-        element: <UserLayout />
-      },
 
+      {
+        path: '/morhealth/',
+        element: <MhHome />
+      },
 
       {
         path: '/morhealth/blog',
@@ -234,7 +234,7 @@ const router = createBrowserRouter([
         element: <Profesionales />,
       }
 
-      
+
     ]
   },
   {
