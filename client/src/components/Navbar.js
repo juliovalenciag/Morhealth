@@ -20,18 +20,18 @@ const Navbar = (props) => {
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
         <div className="h-6 w-[224px] pt-1">
-          {/*
+
           <a
             className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
             href=" "
           >
-            Pages
+            Morhealth
             <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
               {" "}
               /{" "}
             </span>
           </a>
-  */}
+
           <Link
             className="text-sm font-normal capitalize text-navy-700 hover:underline dark:text-white dark:hover:text-white"
             to="#"
@@ -198,12 +198,12 @@ const Navbar = (props) => {
               <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
 
               <div className="mt-3 ml-4 flex flex-col">
-                <a
-                  href=" "
+                <Link
+                  to='/morhealth/perfil'
                   className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
                 >
                   Profile Settings
-                </a>
+                </Link>
                 <a
                   href=" "
                   className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"

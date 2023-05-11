@@ -15,35 +15,35 @@ import {
   MdLock,
 } from "react-icons/md";
 
+import { BiHome } from 'react-icons/bi'
+import { TfiWrite } from 'react-icons/tfi'
+import { FaAppleAlt, FaDumbbell } from 'react-icons/fa'
+
 const routes = [
   {
     name: "Inicio",
     layout: "/morhealth",
     path: "",
-    icon: <MdHome className="h-6 w-6" />,
-    component: Dashboard,
+    icon: <BiHome className="h-5 w-5" />,
   },
   {
     name: "Blog",
     layout: "/morhealth",
     path: "blog",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-    component: NFTMarketplace,
+    icon: <TfiWrite className="h-5 w-5" />,
     secondary: true,
   },
   {
     name: "Nutrición",
     layout: "/morhealth",
-    icon: <MdBarChart className="h-6 w-6" />,
+    icon: <FaAppleAlt className="h-5 w-5" />,
     path: "nutricion",
-    component: DataTables,
   },
   {
     name: "Ejercicios",
     layout: "/morhealth",
     path: "ejercicios",
-    icon: <MdPerson className="h-6 w-6" />,
-    component: Profile,
+    icon: <FaDumbbell className="h-5 w-5" />,
   },
 ];
 

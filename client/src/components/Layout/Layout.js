@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
     }, [location.pathname]);
 
     const getActiveRoute = (routes) => {
-        let activeRoute = "Main Dashboard";
+        let activeRoute = "Inicio";
         for (let i = 0; i < routes.length; i++) {
             if (
                 window.location.href.indexOf(

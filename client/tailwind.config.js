@@ -137,8 +137,8 @@ module.exports = {
     colors: () => ({
       white: "#ffffff",
       lightPrimary: "#F4F7FE",
-      blueSecondary: "#4318FF",
-      brandLinear: "#868CFF",
+      blueSecondary: "#216b91",
+      brandLinear: "#4b90c0",
       gray: {
         50: "#f8f9fa",
         100: "#edf2f7",
@@ -159,9 +159,9 @@ module.exports = {
         400: "#3652ba",
         500: "#1b3bbb",
         600: "#24388a",
-        700: "#1B254B",
-        800: "#111c44",
-        900: "#0b1437",
+        700: "#031728",
+        800: "#031728",
+        900: "#223159",
       },
       red: {
         50: "#ee5d501a",
@@ -313,7 +313,7 @@ module.exports = {
         200: "#A195FD",
         300: "#8171FC",
         400: "#7551FF",
-        500: "#422AFB",
+        500: "#216B91",
         600: "#3311DB",
         700: "#2111A5",
         800: "#190793",

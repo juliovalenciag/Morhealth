@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import Head from "./Head"
-import "./header.css"
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
@@ -16,15 +15,15 @@ const Header = () => {
             <li>
               <Link to='/'>Inicio</Link>
             </li>
-            
+
             <li>
               <a href="#about">Acerca</a>
             </li>
-           
+
             <li>
               <Link to='/pricing'>Planes</Link>
             </li>
-            
+
             <li>
               <Link to='/contact'>Contacto</Link>
             </li>
@@ -35,7 +34,7 @@ const Header = () => {
             </div>
           </Link>
           <button className='toggle' onClick={() => setClick(!click)}>
-            {click ? <i className='fa fa-times'><FaTimes/></i> : <i className='fa fa-bars'><FaBars/></i>}
+            {click ? <i className='fa fa-times'><FaTimes /></i> : <i className='fa fa-bars'><FaBars /></i>}
           </button>
         </nav>
       </header>
