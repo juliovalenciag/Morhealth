@@ -54,6 +54,7 @@ import Dashboard from "./views/user/default";
 import Marketplace from "./views/user/marketplace";
 import Tables from "./views/user/tables";
 import Profile from "./views/user/profile";
+import HomeNutricion from "./nutricion/HomeNutricion";
 
 
 
@@ -200,7 +201,7 @@ const router = createBrowserRouter([
 
       {
         path: '/morhealth/nutricion',
-        element: <Tables />
+        element: <HomeNutricion />
       },
       {
         path: '/morhealth/nutricion/cuisine/:type',
@@ -222,6 +223,7 @@ const router = createBrowserRouter([
         path: '/morhealth/nutricion/recipe/:name',
         element: <Recipe />
       },
+      
       {
         path: '/morhealth/nutricion/recetas/receta/:id',
         element: <RecipeDetail />

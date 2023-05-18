@@ -4,6 +4,9 @@ import Navbar from '../Navbar';
 import Footer from '../footer/Footer';
 import routes from '../../routes';
 import { useLocation } from 'react-router-dom';
+import NavbarNutricion from '../NavbarNutricion';
+import NavbarEjercicios from '../NavbarEjercicios';
+import NavbarBlog from '../NavbarBlog';
 
 const Layout = ({ children }) => {
 
@@ -52,12 +55,39 @@ const Layout = ({ children }) => {
             <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
                 <main className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}>
                     <div className="h-full">
+                        {location.pathname.startsWith('/morhealth/nutricion') &&
+                            <NavbarNutricion
+                                onOpenSidenav={() => setOpen(true)}
+                                logoText={"Morhealth"}
+                                brandText={currentRoute}
+                                secondary={getActiveNavbar(routes)}
+                            />
+                        }
+                        {location.pathname.startsWith('/morhealth/ejercicios') &&
+                            <NavbarEjercicios
+                                onOpenSidenav={() => setOpen(true)}
+                                logoText={"Morhealth"}
+                                brandText={currentRoute}
+                                secondary={getActiveNavbar(routes)}
+                            />
+                        }
+                        {location.pathname.startsWith('/morhealth/blog') &&
+                            <NavbarBlog
+                                onOpenSidenav={() => setOpen(true)}
+                                logoText={"Morhealth"}
+                                brandText={currentRoute}
+                                secondary={getActiveNavbar(routes)}
+                            />
+                        }
+                        {['/morhealth', '/morhealth/'].includes(location.pathname) &&
                         <Navbar
                             onOpenSidenav={() => setOpen(true)}
                             logoText={"Morhealth"}
                             brandText={currentRoute}
                             secondary={getActiveNavbar(routes)}
                         />
+                    }
+
                         <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
                             {children}
                         </div>
