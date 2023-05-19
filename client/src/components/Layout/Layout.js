@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 import Footer from '../footer/Footer';
 import routes from '../../routes';
 import { useLocation } from 'react-router-dom';
-import NavbarNutricion from '../NavbarNutricion';
+import NavbarNutricion from '../../nutricion/nutricionComponents/NavbarNutricion';
 import NavbarEjercicios from '../NavbarEjercicios';
 import NavbarBlog from '../NavbarBlog';
 

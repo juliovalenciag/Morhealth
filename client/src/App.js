@@ -65,7 +65,6 @@ export const ThemeContext = React.createContext(null);
 const LayoutInicio = () => {
   return (
     <>
-      <Header />
       <Outlet />
       <Pie />
     </>

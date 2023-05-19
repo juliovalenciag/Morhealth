@@ -276,8 +276,6 @@ const Logo = styled.img`
     margin-bottom: 20px;
 `;
 
-
-
 const InputContainer = styled.div`
   position: relative;
   display: flex;
@@ -287,11 +285,12 @@ const InputContainer = styled.div`
 
 const ShowPasswordButton = styled.button`
   position: absolute;
-  right: 0px;
+  right: 10px; 
   background: transparent;
   border: none;
   cursor: pointer;
-  top: -23px;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 

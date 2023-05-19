@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown from "./dropdown";
+import Dropdown from "../../components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { BsArrowBarUp } from "react-icons/bs";
@@ -9,8 +9,8 @@ import {
     IoMdNotificationsOutline,
     IoMdInformationCircleOutline,
 } from "react-icons/io";
-import avatar from "./../assets/img/avatars/avatar4.png";
-import mhmockup from "./../assets/img/mockup1.png";
+import avatar from "./../../assets/img/avatars/avatar4.png";
+import mhmockup from "./../../assets/img/mockup1.png";
 
 const NavbarNutricion = (props) => {
     const { onOpenSidenav, brandText } = props;
