@@ -41,7 +41,6 @@ import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
 import LoginPage from "./pages/Sesion/LoginPage";
 import DetailsPages from "./Blog/details/DetailsPages";
 import EjerciciosHome from "./pages/EjerciciosHome";
-import Header from "./home/common/header/Header";
 import Pie from "./home/common/Pie";
 import Ejercicios from "./fitness/Ejercicios";
 import MhHome from "./pages/MhHome";
@@ -55,6 +54,12 @@ import Marketplace from "./views/user/marketplace";
 import Tables from "./views/user/tables";
 import Profile from "./views/user/profile";
 import HomeNutricion from "./nutricion/HomeNutricion";
+import ScrollToTop from "./home/common/ScrollToTop";
+import Navbar from "./home/common/Navbar";
+import Contacto from "./home/contacto/Contacto";
+import Pricing from "./home/planes/Pricing";
+import Acerca from "./home/acerca/Acerca";
+
 
 
 
@@ -65,6 +70,8 @@ export const ThemeContext = React.createContext(null);
 const LayoutInicio = () => {
   return (
     <>
+      <ScrollToTop />
+      <Navbar />
       <Outlet />
       <Pie />
     </>
@@ -82,6 +89,20 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />
       },
+      {
+        path: '/contacto',
+        element: <Contacto />
+      },
+      {
+        path: '/acerca',
+        element: <Acerca />
+      },
+      {
+        path: '/planes',
+        element: <Pricing />
+      },
+
+
 
     ]
   },
@@ -222,7 +243,7 @@ const router = createBrowserRouter([
         path: '/morhealth/nutricion/recipe/:name',
         element: <Recipe />
       },
-      
+
       {
         path: '/morhealth/nutricion/recetas/receta/:id',
         element: <RecipeDetail />

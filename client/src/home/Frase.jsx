@@ -2,19 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const AppFeatures = () => {
+const Frase = () => {
 
-    const features = [
-        'Funcionalidad 1',
-        'Funcionalidad 2',
-        'Funcionalidad 3',
-        'Funcionalidad 4',
-        'Funcionalidad 5',
-    ];
+  const features = [
+    'Funcionalidad 1',
+    'Funcionalidad 2',
+    'Funcionalidad 3',
+    'Funcionalidad 4',
+    'Funcionalidad 5',
+  ];
 
-    return (
-        <>
-        {/*
+  return (
+    <>
+      {/*
             <AppFeaturesWrapper>
                 {features.map((feature, index) => (
                     <FeatureCircle key={index}>
@@ -25,16 +25,16 @@ const AppFeatures = () => {
                 */}
 
 
-            <ImageBackgroundSectionWrapper>
-                <Phrase>
-                    <WordBlue> CREANDO </WordBlue>
-                    <WordTeal> LA MEJOR </WordTeal>
-                    <WordBlue> HISTORIA </WordBlue>
-                </Phrase>
-            </ImageBackgroundSectionWrapper>
+      <ImageBackgroundSectionWrapper>
+        <Phrase>
+          <WordBlue> CREANDO </WordBlue>
+          <WordTeal> LA MEJOR </WordTeal>
+          <WordBlue> HISTORIA </WordBlue>
+        </Phrase>
+      </ImageBackgroundSectionWrapper>
 
-        </>
-    )
+    </>
+  )
 };
 
 const AppFeaturesWrapper = styled.section`
@@ -130,4 +130,4 @@ const WordTeal = styled.span`
 `;
 
 
-export default AppFeatures
+export default Frase

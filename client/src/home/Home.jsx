@@ -1,28 +1,23 @@
 import React from "react"
-import AboutCard from "./about/AboutCard"
-import Hblog from "./Hblog"
-import HAbout from "./HAbout"
+import Planes from "./planes/Planes"
 import Hero from "./components/Hero"
-import Testimonal from "./testimonal/Testimonal"
-import HPro from "./HPro"
 import ScrollToTop from "./common/ScrollToTop"
 import FeatureSection from "./FeatureSection"
-import AppFeatures from "./AppFeatures"
+import Frase from "./Frase"
 import FeatureSection2 from "./FeatureSection2"
 import AnimatedBoxes from "./AnimatedBoxes"
-import Navbar from "./components/Navbar"
+import Navbar from "./common/Navbar"
 
 const Home = () => {
   return (
     <>
-      <ScrollToTop/>
-      <Navbar/>
+      <ScrollToTop />
       <Hero />
-      <AnimatedBoxes/>
-      <FeatureSection/>
-      <FeatureSection2/>
-      <AppFeatures/>
-      <HAbout />
+      <AnimatedBoxes />
+      <FeatureSection />
+      <FeatureSection2 />
+      <Frase />
+      <Planes />
     </>
   )
 }

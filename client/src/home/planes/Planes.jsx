@@ -1,13 +1,8 @@
-import React from "react"
-import OnlineCourses from "./allcourses/OnlineCourses"
-import Heading from "./common/heading/Heading"
-import "./allcourses/courses.css"
-import { coursesCard } from "./dummydata"
+import React from "react";
 import styled from "styled-components";
-import { colors } from "../styles/variables"
+import { colors } from "../../styles/variables";
 
-const HAbout = () => {
-
+const Planes = () => {
   const plans = [
     {
       title: 'Mensual',
@@ -27,24 +22,25 @@ const HAbout = () => {
   ];
 
   return (
-    <>
-      <Section id="planes">
-        <Container>
-          <Heading subtitle="Planes" title="Planes de suscripción para usuarios" />
-          <CardContainer>
-            {plans.map((plan, index) => (
-              <Card key={index}>
-                <Title>{plan.title}</Title>
-                <Price>{plan.price}</Price>
-                <Description>{plan.description}</Description>
-                <Button>Suscribirse</Button>
-              </Card>
-            ))}
-          </CardContainer>
-        </Container>
-      </Section>
-    </>
-  )
+    <Section id="planes">
+      <Container>
+        <HeadingWrapper>
+          <Title>Planes</Title>
+          <Subtitle>Planes de suscripción para usuarios</Subtitle>
+        </HeadingWrapper>
+        <CardContainer>
+          {plans.map((plan, index) => (
+            <Card key={index}>
+              <Title>{plan.title}</Title>
+              <Price>{plan.price}</Price>
+              <Description>{plan.description}</Description>
+              <Button>Suscribirse</Button>
+            </Card>
+          ))}
+        </CardContainer>
+      </Container>
+    </Section>
+  );
 };
 
 const Section = styled.section`
@@ -58,6 +54,22 @@ const Container = styled.div`
   padding: 0 15px;
 `;
 
+const HeadingWrapper = styled.div`
+  text-align: center;
+  margin-bottom: 40px;
+`;
+
+const Title = styled.h3`
+  font-size: 30px;
+  color: ${colors.darkest};
+  margin-bottom: 10px;
+`;
+
+const Subtitle = styled.h2`
+  font-size: 24px;
+  color: ${colors.darkest};
+`;
+
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -65,6 +77,7 @@ const CardContainer = styled.div`
   flex-wrap: wrap;
   gap: 30px;
   padding: 40px;
+
   @media (max-width: 768px) {
     gap: 20px;
   }
@@ -92,17 +105,11 @@ const Card = styled.div`
   }
 `;
 
-const Title = styled.h3`
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: ${colors.darkest};
-`;
-
 const Price = styled.p`
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  color:${colors.lighter};
+  color: ${colors.lighter};
 `;
 
 const Description = styled.p`
@@ -126,4 +133,4 @@ const Button = styled.button`
   }
 `;
 
-export default HAbout
+export default Planes;

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronUp } from "react-icons/fa";
 import { colors } from "../../styles/variables";
+
 function ScrollToTop() {
+
   const [visible, setVisible] = useState(false);
   window.addEventListener("scroll", () => {
     window.pageYOffset > 100 ? setVisible(true) : setVisible(false);
   });
+
   return (
     <Div>
       <a href="#" className={`${visible ? "block" : "none"}`}>
@@ -18,7 +21,7 @@ function ScrollToTop() {
 
 const Div = styled.div`
   max-width: 100vw;
-  z-index: 20;
+  z-index: 200;
   .none {
     opacity: 0;
     visibility: hidden;
