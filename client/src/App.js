@@ -119,7 +119,7 @@ const router = createBrowserRouter([
 
       {
         path: '/morhealth/blog',
-        element: <Marketplace />
+        element: <BlogHome />
       },
       {
         path: '/morhealth/blog/post/:id',
