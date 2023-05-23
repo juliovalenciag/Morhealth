@@ -38,12 +38,20 @@ export const register = (req, res) => {
 }
 
 export const login = (req, res) => {
+    const { username, password } = req.body;
+    console.log('Request body:', req.body);
+    if (!username || !password) {
+        return res.status(400).json({ message: "Nombre de usuario y contraseña requeridos" });
+    }
 
     // Checar usuario
     const q = "SELECT * FROM users WHERE username = ?"
 
     db.query(q, [req.body.username], (err, data) => {
-        if (err) return res.json(err);
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "Error interno del servidor" });
+        }
         if (data.length === 0) return res.status(404).json("Usuario no encontrado");
 
         // Checar contraseña
@@ -51,13 +59,21 @@ export const login = (req, res) => {
             return res.status(400).json("Información de contraseña faltante");
         }
 
-        const isPasswordCorrect = bcrypt.compareSync(
-            req.body.password,
-            data[0].password
-        );
+        let isPasswordCorrect = false;
 
-        if (!isPasswordCorrect)
+        try {
+            isPasswordCorrect = bcrypt.compareSync(
+                req.body.password,
+                data[0].password
+            );
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({ message: "Error interno al verificar contraseña" });
+        }
+
+        if (!isPasswordCorrect) {
             return res.status(400).json("Usuario o contraseña incorrectos");
+        }
 
         const token = jwt.sign({ iduser: data[0].user_id, iat: Math.floor(Date.now() / 1000) }, "jwtkey");
         console.log("Token generado:", token);

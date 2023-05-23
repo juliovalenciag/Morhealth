@@ -7,31 +7,39 @@ import axios from 'axios';
 import { AuthContext } from '../../context/authContext'
 import { v } from '../../styles/variables';
 import * as Yup from 'yup';
+import './Validations';
 
 const LoginPage = () => {
 
     const API_URL = "http://localhost:8800/api/auth";
+    const navigate = useNavigate();
 
     const apiClient = axios.create({
         baseURL: API_URL,
     });
 
-    const [inputs, setInputs] = useState({
+    const [loginInputs, setLoginInputs] = useState({
         username: "",
-        email: "",
         password: "",
+    });
+
+
+    const [registerInputs, setRegisterInputs] = useState({
+        username: "",
+        password: "",
+        email: "",
         name: "",
         lastname_p: "",
         lastname_m: "",
         gender: "",
         age: ""
-    })
+    });
+
 
     const [err, setError] = useState(null);
 
     const [ageError, setAgeError] = useState(null);
 
-    const navigate = useNavigate();
 
     const { login } = useContext(AuthContext);
 
@@ -51,6 +59,19 @@ const LoginPage = () => {
         setActiveRegistration("professional");
         toggle(false);
     };
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('Por favor, introduce un correo electrónico válido')
+            .required('El correo electrónico es requerido'),
+        username: Yup.string()
+            .min(3, 'El nombre de usuario debe tener al menos 3 caracteres')
+            .max(20, 'El nombre de usuario no debe exceder los 20 caracteres')
+            .required('El nombre de usuario es requerido'),
+        password: Yup.string()
+            .min(6, 'La contraseña debe tener al menos 6 caracteres')
+            .required('La contraseña es requerida'),
+    });
 
     const handleEnterKeyPress = (e, callback) => {
         if (e.key === 'Enter') {
@@ -75,87 +96,73 @@ const LoginPage = () => {
         setShowPassword(false);
     };
 
-    const handleChange = e => {
-
+    const handleChange = (e, isLogin) => {
         const { name, value } = e.target;
 
-        setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
-        if (name === "age") {
-            if (value < 15 || value > 64) {
-                setAgeError("La edad debe estar entre 15 y 64 años");
-            } else {
-                setAgeError(null);
+        if (isLogin) {
+            setLoginInputs(prev => ({ ...prev, [name]: value }))
+        } else {
+            setRegisterInputs(prev => ({ ...prev, [name]: value }))
+            if (name === "age") {
+                if (value < 15 || value > 64) {
+                    setAgeError("La edad debe estar entre 15 y 64 años");
+                } else {
+                    setAgeError(null);
+                }
             }
         }
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(loginInputs);
         try {
             const response = await apiClient.post("/login", {
-                username: inputs.username,
-                password: inputs.password,
+                username: loginInputs.username,
+                password: loginInputs.password,
             });
-            login(response.data);
-            navigate("/morhealth");
+            if (response.status === 200) {
+                login(response.data);
+                navigate("/morhealth");
+            } else if (response.status >= 400) {
+                setError(`Error: ${response.status}`);
+            }
         } catch (err) {
-            setError(err.response ? err.response.statusText : 'Error inesperado');
+            setError(err.message || 'Error inesperado');
         }
     }
 
     const handleSubmitR = async e => {
         e.preventDefault();
         try {
-            const isValid = await validationSchema.isValid(inputs);
-            if (!isValid) {
-                // Aquí puedes manejar qué hacer si la validación falla
-                setError('La validación falló');
-                return;
-            }
-            console.log("Submitting registration", inputs);
-            await apiClient.post("/registro", {
-                username: inputs.username,
-                name: inputs.name,
-                email: inputs.email,
-                password: inputs.password,
-                lastname_p: inputs.lastname_p,
-                lastname_m: inputs.lastname_m,
-                gender: inputs.gender,
-                age: inputs.age,
+            await validationSchema.validate(registerInputs);
+            const response = await apiClient.post("/registro", {
+                username: registerInputs.username,
+                name: registerInputs.name,
+                email: registerInputs.email,
+                password: registerInputs.password,
+                lastname_p: registerInputs.lastname_p,
+                lastname_m: registerInputs.lastname_m,
+                gender: registerInputs.gender,
+                age: registerInputs.age,
             });
-            toggle(true);
+            if (response.status === 200) {
+                toggle(true);
+            } else {
+                setError(`Error: ${response.status}`);
+            }
         } catch (err) {
-            // Aquí manejas el error 409 para mostrar un mensaje de usuario ya existente
-            if (err.response && err.response.status === 409) {
+            if (err instanceof Yup.ValidationError) {
+                setError(err.errors.join(', '));
+            } else if (err.response && err.response.status === 409) {
                 setError('Usuario ya existe');
             } else {
-                setError(err.response ? err.response.statusText : 'Error inesperado');
+                setError(err.message || 'Error inesperado');
             }
-            console.log(err);
         }
-        console.log(inputs);
     }
 
-
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            if (signIn) {
-                handleSubmit(e);
-            } else {
-                handleSubmitR(e);
-            }
-        }
-    };
-
-
-    const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .email('Por favor, introduce un correo electrónico válido')
-            .required('El correo electrónico es requerido'),
-        // Puedes añadir más campos aquí
-    });
 
 
     return (
@@ -243,7 +250,7 @@ const LoginPage = () => {
                     }
 
 
-                    <SesionButton type="button" onClick={handleSubmitR}>Registrar</SesionButton>
+                    <SesionButton type="submit" onClick={handleSubmitR}>Registrar</SesionButton>
 
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
@@ -255,10 +262,10 @@ const LoginPage = () => {
                 <SesionForm onSubmit={(e) => handleSubmit(e, signIn)}>
                     <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
-                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
+                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={e => handleChange(e, true)} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
 
                     <InputContainer>
-                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} />
+                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={e => handleChange(e, true)} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} />
                         <ShowPasswordButton
                             onMouseDown={togglePasswordVisibilityOn}
                             onMouseUp={togglePasswordVisibilityOff}
@@ -272,7 +279,7 @@ const LoginPage = () => {
                     <SesionAnchor>¿Olvidaste tu contraseña?</SesionAnchor>
 
 
-                    <SesionButton type="button" onClick={handleSubmit}>Ingresar</SesionButton>
+                    <SesionButton type="submit" onClick={handleSubmit}>Ingresar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignInContainer>
