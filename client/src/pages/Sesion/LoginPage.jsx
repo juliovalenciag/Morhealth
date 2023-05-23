@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext'
 import { v } from '../../styles/variables';
+import * as Yup from 'yup';
 
 const LoginPage = () => {
 
@@ -19,6 +20,11 @@ const LoginPage = () => {
         username: "",
         email: "",
         password: "",
+        name: "",
+        lastname_p: "",
+        lastname_m: "",
+        gender: "",
+        age: ""
     })
 
     const [err, setError] = useState(null);
@@ -84,28 +90,54 @@ const LoginPage = () => {
         }
     }
 
-    const handleSubmit = async e => {
-        e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            await login(inputs)
+            const response = await apiClient.post("/login", {
+                username: inputs.username,
+                password: inputs.password,
+            });
+            login(response.data);
             navigate("/morhealth");
         } catch (err) {
-            setError(err.response.data);
+            setError(err.response ? err.response.statusText : 'Error inesperado');
         }
     }
 
     const handleSubmitR = async e => {
-        e.preventDefault()
+        e.preventDefault();
         try {
+            const isValid = await validationSchema.isValid(inputs);
+            if (!isValid) {
+                // Aquí puedes manejar qué hacer si la validación falla
+                setError('La validación falló');
+                return;
+            }
             console.log("Submitting registration", inputs);
-            await apiClient.post("/registro", inputs);
+            await apiClient.post("/registro", {
+                username: inputs.username,
+                name: inputs.name,
+                email: inputs.email,
+                password: inputs.password,
+                lastname_p: inputs.lastname_p,
+                lastname_m: inputs.lastname_m,
+                gender: inputs.gender,
+                age: inputs.age,
+            });
             toggle(true);
         } catch (err) {
-            setError(err.response.data);
+            // Aquí manejas el error 409 para mostrar un mensaje de usuario ya existente
+            if (err.response && err.response.status === 409) {
+                setError('Usuario ya existe');
+            } else {
+                setError(err.response ? err.response.statusText : 'Error inesperado');
+            }
             console.log(err);
         }
         console.log(inputs);
     }
+
+
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -118,13 +150,20 @@ const LoginPage = () => {
     };
 
 
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('Por favor, introduce un correo electrónico válido')
+            .required('El correo electrónico es requerido'),
+        // Puedes añadir más campos aquí
+    });
+
 
     return (
         <Container>
 
 
             <SignUpContainer signIn={signIn}>
-                <SesionForm onSubmit={(e) => handleFormSubmit(e, !signIn)}>
+                <SesionForm onSubmit={(e) => handleSubmitR(e, !signIn)}>
 
                     {
                         activeRegistration === "user" ? (
@@ -204,7 +243,8 @@ const LoginPage = () => {
                     }
 
 
-                    <SesionButton type="submit">Registrar</SesionButton>
+                    <SesionButton type="button" onClick={handleSubmitR}>Registrar</SesionButton>
+
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignUpContainer>
@@ -212,7 +252,7 @@ const LoginPage = () => {
 
 
             <SignInContainer signIn={signIn}>
-                <SesionForm onSubmit={(e) => handleFormSubmit(e, signIn)}>
+                <SesionForm onSubmit={(e) => handleSubmit(e, signIn)}>
                     <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
                     <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
@@ -232,7 +272,7 @@ const LoginPage = () => {
                     <SesionAnchor>¿Olvidaste tu contraseña?</SesionAnchor>
 
 
-                    <SesionButton type="submit">Ingresar</SesionButton>
+                    <SesionButton type="button" onClick={handleSubmit}>Ingresar</SesionButton>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignInContainer>

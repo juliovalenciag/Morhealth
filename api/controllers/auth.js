@@ -47,6 +47,10 @@ export const login = (req, res) => {
         if (data.length === 0) return res.status(404).json("Usuario no encontrado");
 
         // Checar contraseña
+        if (!req.body.password || !data[0].password) {
+            return res.status(400).json("Información de contraseña faltante");
+        }
+
         const isPasswordCorrect = bcrypt.compareSync(
             req.body.password,
             data[0].password

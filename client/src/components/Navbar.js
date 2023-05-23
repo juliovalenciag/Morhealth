@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Dropdown from "./dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -12,9 +12,14 @@ import {
 import avatar from "./../assets/img/avatars/avatar4.png";
 import mhmockup from "./../assets/img/mockup1.png";
 
+import { AuthContext } from "../context/authContext";
+
+
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
+
+  const { currentUser, logout } = useContext(AuthContext);
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -182,7 +187,7 @@ const Navbar = (props) => {
               <div className="mt-3 ml-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Bienvenido, Sawalito
+                    👋 Bienvenido, {currentUser?.username}
                   </p>{" "}
                 </div>
               </div>
@@ -201,12 +206,13 @@ const Navbar = (props) => {
                 >
                   Configuración
                 </a>
-                <a
+                <Link to='/'
                   href=" "
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
+                  onClick={logout}
                 >
                   Cerrar sesión
-                </a>
+                </Link>
               </div>
             </div>
           }

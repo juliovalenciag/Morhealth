@@ -322,7 +322,7 @@ export const lineChartOptionsTotalSpent = {
     },
     type: "text",
     range: undefined,
-    categories: ["SEP", "OCT", "NOV", "DEC", "JAN", "FEB"],
+    categories: ["SEP", "OCT", "NOV", "DIC", "ENE", "FEB"],
   },
 
   yaxis: {
