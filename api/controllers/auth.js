@@ -40,6 +40,8 @@ export const register = (req, res) => {
 export const login = (req, res) => {
     const { username, password } = req.body;
     console.log('Request body:', req.body);
+    console.log('Username:', username);
+    console.log('Password:', password);
     if (!username || !password) {
         return res.status(400).json({ message: "Nombre de usuario y contraseña requeridos" });
     }

@@ -205,7 +205,14 @@ const LoginPage = () => {
                                 <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
 
                                 <InputContainer>
-                                    <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
+                                    <SesionInput
+                                        required
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder='Contraseña'
+                                        name='password'
+                                        onChange={e => handleChange(e, true)}
+                                        onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                                    />
                                     <ShowPasswordButton
                                         onMouseDown={togglePasswordVisibilityOn}
                                         onMouseUp={togglePasswordVisibilityOff}
@@ -236,7 +243,14 @@ const LoginPage = () => {
                                 <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
 
                                 <InputContainer>
-                                    <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={handleChange} />
+                                    <SesionInput
+                                        required
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder='Contraseña'
+                                        name='password'
+                                        onChange={e => handleChange(e, true)}
+                                        onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                                    />
                                     <ShowPasswordButton
                                         onMouseDown={togglePasswordVisibilityOn}
                                         onMouseUp={togglePasswordVisibilityOff}
@@ -265,7 +279,14 @@ const LoginPage = () => {
                     <SesionInput required type="text" placeholder='Usuario' name='username' onChange={e => handleChange(e, true)} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
 
                     <InputContainer>
-                        <SesionInput required type={showPassword ? 'text' : 'password'} placeholder='Contraseña' name='password' onChange={e => handleChange(e, true)} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} />
+                        <SesionInput
+                            required
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder='Contraseña'
+                            name='password'
+                            onChange={e => handleChange(e, true)}
+                            onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                        />
                         <ShowPasswordButton
                             onMouseDown={togglePasswordVisibilityOn}
                             onMouseUp={togglePasswordVisibilityOff}
