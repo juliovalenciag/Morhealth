@@ -3,16 +3,28 @@ import styled from 'styled-components';
 import mhlogo from './../../assets/logo/morhealthlogo.png';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import { AuthContext } from '../../context/authContext'
 import { v } from '../../styles/variables';
 import * as Yup from 'yup';
-import './Validations';
 
 const LoginPage = () => {
 
+    axios.defaults.withCredentials = true;
+
     const API_URL = "http://localhost:8800/api/auth";
     const navigate = useNavigate();
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [lastname_p, setLastname_p] = useState("");
+    const [lastname_m, setLastname_m] = useState("");
+    const [gender, setGender] = useState("");
+    const [age, setAge] = useState("");
+    const [loginStatus, setLoginStatus] = useState("");
+    const [registerStatus, setRegisterStatus] = useState("");
 
     const apiClient = axios.create({
         baseURL: API_URL,
@@ -34,56 +46,56 @@ const LoginPage = () => {
         gender: "",
         age: ""
     });
-
-
     const [err, setError] = useState(null);
-
     const [ageError, setAgeError] = useState(null);
-
-
     const { login } = useContext(AuthContext);
-
-
     const [signIn, toggle] = useState(true);
-
     const [showPassword, setShowPassword] = useState(false);
-
     const [activeRegistration, setActiveRegistration] = useState("user");
+
+    const registerFunction = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:3001/register", {
+            username: username,
+            password: password,
+            email: email,
+            name: name,
+            lastname_m: lastname_m,
+            lastname_p: lastname_p,
+            age: age,
+            gender: gender,
+        }).then((response) => {
+            if (response.data.message) {
+                setRegisterStatus(response.data.message);
+            } else {
+                setRegisterStatus("Cuenta creada correctamente")
+            }
+        })
+
+    }
+    const loginFunction = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:3001/login", {
+            username: username,
+            password: password,
+        }).then((response) => {
+            if (response.data.message) {
+                setLoginStatus(response.data.message);
+            } else {
+                setLoginStatus(response.data[0].email);
+            }
+        })
+    }
+
 
     const showUserRegistration = () => {
         setActiveRegistration("user");
         toggle(false);
     };
-
     const showProfessionalRegistration = () => {
         setActiveRegistration("professional");
         toggle(false);
     };
-
-    const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .email('Por favor, introduce un correo electrónico válido')
-            .required('El correo electrónico es requerido'),
-        username: Yup.string()
-            .min(3, 'El nombre de usuario debe tener al menos 3 caracteres')
-            .max(20, 'El nombre de usuario no debe exceder los 20 caracteres')
-            .required('El nombre de usuario es requerido'),
-        password: Yup.string()
-            .min(6, 'La contraseña debe tener al menos 6 caracteres')
-            .required('La contraseña es requerida'),
-    });
-
-    const handleEnterKeyPress = (e, callback) => {
-        if (e.key === 'Enter') {
-            callback(e);
-        }
-    };
-
-    const handleFormSubmit = (e, isSignIn) => {
-        e.preventDefault();
-        isSignIn ? handleSubmit(e) : handleSubmitR(e);
-    };
-
     const togglePasswordVisibilityOn = (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -96,47 +108,49 @@ const LoginPage = () => {
         setShowPassword(false);
     };
 
-    const handleChange = (e, isLogin) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (isLogin) {
-            setLoginInputs(prev => ({ ...prev, [name]: value }))
-        } else {
-            setRegisterInputs(prev => ({ ...prev, [name]: value }))
-            if (name === "age") {
-                if (value < 15 || value > 64) {
-                    setAgeError("La edad debe estar entre 15 y 64 años");
-                } else {
-                    setAgeError(null);
-                }
+        setLoginInputs(prev => ({ ...prev, [name]: value }));
+        if (name === "age") {
+            if (value < 15 || value > 64) {
+                setAgeError("La edad debe estar entre 15 y 64 años");
+            } else {
+                setAgeError(null);
             }
         }
-    }
-
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(loginInputs);
+        console.log('Inputs before submit:', loginInputs);
+
+        const requestBody = {
+            username: loginInputs.username,
+            password: e.target.elements.password.value
+        };
+
         try {
-            const response = await apiClient.post("/login", {
-                username: loginInputs.username,
-                password: loginInputs.password,
-            });
-            if (response.status === 200) {
+            const response = await apiClient.post("/login", requestBody);
+            if (response.data) {
                 login(response.data);
                 navigate("/morhealth");
-            } else if (response.status >= 400) {
-                setError(`Error: ${response.status}`);
+            } else {
+                throw new Error("Usuario o contraseña incorrectos");
             }
         } catch (err) {
-            setError(err.message || 'Error inesperado');
+            if (err.response) {
+                setError(`Error: ${err.response.data.message || err.response.data}`);
+            } else {
+                setError(err.message || 'Error inesperado');
+            }
         }
-    }
+    };
+
 
     const handleSubmitR = async e => {
         e.preventDefault();
         try {
-            await validationSchema.validate(registerInputs);
+            console.log('RegisterInputs before submit:', registerInputs); // Debug line
             const response = await apiClient.post("/registro", {
                 username: registerInputs.username,
                 name: registerInputs.name,
@@ -176,9 +190,9 @@ const LoginPage = () => {
                         activeRegistration === "user" ? (
                             <>
                                 <SesionTitle>Registro de usuario</SesionTitle>
-                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={(e) => { setName(e.target.value) }}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={(e) => { setLastname_p(e.target.value) }}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={(e) => { setLastname_m(e.target.value) }}></SesionInput>
                                 <SesionInput
                                     required
                                     type="number"
@@ -186,7 +200,7 @@ const LoginPage = () => {
                                     name="age"
                                     min="15"
                                     max="64"
-                                    onChange={handleChange}
+                                    onChange={(e) => { setAge(e.target.value) }}
                                 />
                                 {ageError && <ErrMss>{ageError}</ErrMss>}
 
@@ -194,15 +208,15 @@ const LoginPage = () => {
                                     required
                                     name="gender"
                                     id="gender"
-                                    onChange={handleChange}
+                                    onChange={(e) => { setGender(e.target.value) }}
                                 >
                                     <option value="">Seleccione su género</option>
                                     <option value="1">Hombre</option>
                                     <option value="2">Mujer</option>
                                 </Select>
 
-                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange} ></SesionInput>
-                                <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={(e) => { setUsername(e.target.value) }} ></SesionInput>
+                                <SesionInput required type="email" placeholder='Email' name='email' onChange={(e) => { setEmail(e.target.value) }}></SesionInput>
 
                                 <InputContainer>
                                     <SesionInput
@@ -210,8 +224,7 @@ const LoginPage = () => {
                                         type={showPassword ? 'text' : 'password'}
                                         placeholder='Contraseña'
                                         name='password'
-                                        onChange={e => handleChange(e, true)}
-                                        onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                                        onChange={(e) => { setPassword(e.target.value) }}
                                     />
                                     <ShowPasswordButton
                                         onMouseDown={togglePasswordVisibilityOn}
@@ -225,22 +238,22 @@ const LoginPage = () => {
                         ) : (
                             <>
                                 <SesionTitle>Registro de profesional</SesionTitle>
-                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Nombre' name='name' onChange={(e) => { setName(e.target.value) }}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido paterno' name='lastname_p' onChange={(e) => { setLastname_p(e.target.value) }}></SesionInput>
+                                <SesionInput required type="text" placeholder='Apellido materno' name='lastname_m' onChange={(e) => { setLastname_m(e.target.value) }}></SesionInput>
 
-                                <Select required name="occupation" onChange={handleChange}>
+                                <Select required name="occupation" onChange={(e) => { setGender(e.target.value) }}>
                                     <option value="">Selecciona una ocupación</option>
                                     <option value="Entrenador">Entrenador</option>
                                     <option value="Nutriologo">Nutriologo</option>
                                     <option value="Médico">Médico</option>
                                 </Select>
 
-                                <SesionInput required type="text" placeholder='Ubicación' name='location' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="tel" placeholder='Teléfono' name='phone' maxLength="10" onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Ubicación' name='location' onChange={(e) => { setName(e.target.value) }}></SesionInput>
+                                <SesionInput required type="tel" placeholder='Teléfono' name='phone' maxLength="10" onChange={(e) => { setName(e.target.value) }}></SesionInput>
 
-                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={handleChange}></SesionInput>
-                                <SesionInput required type="email" placeholder='Email' name='email' onChange={handleChange}></SesionInput>
+                                <SesionInput required type="text" placeholder='Usuario' name='username' onChange={(e) => { setUsername(e.target.value) }}></SesionInput>
+                                <SesionInput required type="email" placeholder='Email' name='email' onChange={(e) => { setEmail(e.target.value) }}></SesionInput>
 
                                 <InputContainer>
                                     <SesionInput
@@ -248,8 +261,7 @@ const LoginPage = () => {
                                         type={showPassword ? 'text' : 'password'}
                                         placeholder='Contraseña'
                                         name='password'
-                                        onChange={e => handleChange(e, true)}
-                                        onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                                        onChange={(e) => { setPassword(e.target.value) }}
                                     />
                                     <ShowPasswordButton
                                         onMouseDown={togglePasswordVisibilityOn}
@@ -264,7 +276,8 @@ const LoginPage = () => {
                     }
 
 
-                    <SesionButton type="submit" onClick={handleSubmitR}>Registrar</SesionButton>
+                    <SesionButton type="submit" onClick={registerFunction}>Registrar</SesionButton>
+                    <h2>{registerStatus}</h2>
 
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
@@ -273,10 +286,10 @@ const LoginPage = () => {
 
 
             <SignInContainer signIn={signIn}>
-                <SesionForm onSubmit={(e) => handleSubmit(e, signIn)}>
+                <SesionForm>
                     <Logo src={mhlogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión</SesionTitle>
-                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={e => handleChange(e, true)} onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)} ></SesionInput>
+                    <SesionInput required type="text" placeholder='Usuario' name='username' onChange={(e) => { setUsername(e.target.value) }} ></SesionInput>
 
                     <InputContainer>
                         <SesionInput
@@ -284,8 +297,7 @@ const LoginPage = () => {
                             type={showPassword ? 'text' : 'password'}
                             placeholder='Contraseña'
                             name='password'
-                            onChange={e => handleChange(e, true)}
-                            onKeyPress={(e) => handleEnterKeyPress(e, handleSubmit)}
+                            onChange={(e) => { setPassword(e.target.value) }}
                         />
                         <ShowPasswordButton
                             onMouseDown={togglePasswordVisibilityOn}
@@ -296,11 +308,10 @@ const LoginPage = () => {
                         </ShowPasswordButton>
                     </InputContainer>
 
-
                     <SesionAnchor>¿Olvidaste tu contraseña?</SesionAnchor>
 
-
-                    <SesionButton type="submit" onClick={handleSubmit}>Ingresar</SesionButton>
+                    <SesionButton type="submit" onClick={loginFunction}>Ingresar</SesionButton>
+                    <h2>{loginStatus}</h2>
                     {err && <ErrMss>{err}</ErrMss>}
                 </SesionForm>
             </SignInContainer>

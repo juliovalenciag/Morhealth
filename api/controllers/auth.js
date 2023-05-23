@@ -42,6 +42,7 @@ export const login = (req, res) => {
     console.log('Request body:', req.body);
     console.log('Username:', username);
     console.log('Password:', password);
+
     if (!username || !password) {
         return res.status(400).json({ message: "Nombre de usuario y contraseña requeridos" });
     }
@@ -55,6 +56,8 @@ export const login = (req, res) => {
             return res.status(500).json({ message: "Error interno del servidor" });
         }
         if (data.length === 0) return res.status(404).json("Usuario no encontrado");
+
+        console.log('Fetched user data:', data[0]);
 
         // Checar contraseña
         if (!req.body.password || !data[0].password) {
@@ -78,21 +81,31 @@ export const login = (req, res) => {
         }
 
         const token = jwt.sign({ iduser: data[0].user_id, iat: Math.floor(Date.now() / 1000) }, "jwtkey");
-        console.log("Token generado:", token);
-        const { password, ...other } = data[0];
+
+        // Log password before removing it
+        console.log('Password before removing:', data[0].password);
+
+        const { password: passwordToRemove, ...user } = data[0];
 
         res
             .cookie("access_token", token, {
                 httpOnly: true
             })
             .status(200)
-            .json(other)
+            .json(user)
     })
 }
 
+
+
+
 export const logout = (req, res) => {
-    res.clearCookie("access_tokens", {
-        sameSite: "none",
-        secure: true
-    }).status(200).json("Usuario ha cerrado sesión.")
+    res
+        .cookie("access_token", token, {
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true,
+        })
+        .status(200)
+        .json(other)
 }
