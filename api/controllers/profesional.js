@@ -1,11 +1,9 @@
-import express from "express";
 import { db } from "../db.js";
+import express from "express";
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-
-
-export const verifyUser = (req, res, next) => {
+export const verifyProfesional = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
         return res.json({ Error: "No esta autenticado" });
@@ -21,43 +19,44 @@ export const verifyUser = (req, res, next) => {
     }
 }
 
-export const register = (req, res) => {
+export const registerPro = (req, res) => {
 
-    //Checar si el usuario ya esta registrado
-    const q = "SELECT * FROM users WHERE email = ? OR username = ?"
-
+    //checar si el profesional ya esta registrado
+    const q = "SELECT * FROM professionals WHERE email = ? OR phone = ?"
     //hash a la contraseña por seguridad del usuario
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    db.query(q, [req.body.email, req.body.username], (err, data) => {
-        if (err) return res.json(err);
-        if (data.length) return res.status(409).json("El usuario ya existe.");
+    db.query(q, [req.body.email, req.body.phone], (err, data) => {
+        if (err) return res.status(500).json({ message: "ERROR CONSULTANDO DATOS: ", error: err });
+        if (data.length) return res.status(409).json({ message: "El profesional ya esta registrado." });
 
-        const q = "INSERT INTO users(`username`, `name`, `lastname_p`, `lastname_m`, `gender`, `age`, `email`, `password`) VALUES (?)"
+        const q = "INSERT INTO professionals(`name`, `lastname_p`, `lastname_m`, `location`, `password`, `phone`, `email`, `occupation`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         const values = [
-            req.body.username,
             req.body.name,
             req.body.lastname_p,
             req.body.lastname_m,
-            req.body.gender,
-            req.body.age,
+            req.body.location,
+            hash,
+            req.body.phone,
             req.body.email,
-            hash
+            req.body.occupation,
+
         ];
-        db.query(q, [values], (err, data) => {
-            if (err) return res.json("ERROR INSERTANDO DATOS: ", err);
+        db.query(q, values, (err, data) => {
+            if (err) return res.status(500).json({ message: "ERROR INSERTANDO DATOS: ", error: err });
             return res.json({ Status: "Exito" });
         })
     })
 }
 
-export const login = (req, res) => {
+export const loginPro = (req, res) => {
+    //checar el profesional
+    const q = "SELECT * FROM professionals WHERE email = ?";
 
-    //Checar el usuario
-    const q = "SELECT * FROM users WHERE username = ?";
-
-    db.query(q, [req.body.username], (err, data) => {
+    db.query(q, [req.body.email], (err, data) => {
         if (err) return res.json({ Error: "ERROR EN EL SERVIDOR PARA INGRESAR" });
         if (data.length > 0) {
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
@@ -72,13 +71,13 @@ export const login = (req, res) => {
                 }
             })
         } else {
-            return res.json({ Error: "No existe el usuario" });
+            return res.json({ Error: "No existe el profesional" });
         }
     })
 }
 
 
-export const logout = (req, res) => {
+export const logoutPro = (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: "Exito" });
 }
