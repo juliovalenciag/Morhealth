@@ -59,6 +59,8 @@ import Navbar from "./home/common/Navbar";
 import Contacto from "./home/contacto/Contacto";
 import Pricing from "./home/planes/Pricing";
 import Acerca from "./home/acerca/Acerca";
+import SesionProfesional from "./pages/Sesion/SesionProfesional";
+import SesionUser from "./pages/Sesion/SesionUser";
 
 
 
@@ -109,7 +111,7 @@ const router = createBrowserRouter([
 
   {
     path: '/morhealth',
-    element: <PrivateRoute />,
+    element: <Dashboard />,
     children: [
 
       {
@@ -275,7 +277,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/ingresar',
-    element: <LoginPage />
+    element: <SesionUser />
+  },
+  {
+    path: '/ingresar/profesional',
+    element: <SesionProfesional />
   },
 ])
 
