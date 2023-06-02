@@ -21,7 +21,7 @@ const NutricionBanner = () => {
                             Recetas
                         </button>
                     </Link>
-                    <Link to='dietas'>
+                    <Link to=''>
                         <button
                             className="text-black linear rounded-xl bg-white px-4 py-2 text-center text-base font-medium transition duration-200 hover:!bg-white/80 active:!bg-white/70">
                             Dietas

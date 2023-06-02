@@ -4,6 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { v } from '../../styles/variables';
+import mhLogo from '../../assets/logo/morhealthlogo.png'
 
 const SesionProfesional = () => {
 
@@ -78,6 +79,7 @@ const SesionProfesional = () => {
         <Container>
             <SignInContainer signIn={!signIn}>
                 <SesionForm onSubmit={handleSubmitL}>
+                <Logo src={mhLogo} alt='Morhealth' />
                     <SesionTitle>Iniciar sesión como profesional</SesionTitle>
 
                     <SesionInput
@@ -114,6 +116,7 @@ const SesionProfesional = () => {
 
             <SignUpContainer signIn={!signIn}>
                 <SesionForm onSubmit={handleSubmitR}>
+                <Logo src={mhLogo} alt='Morhealth' />
                     <SesionTitle>Registrarse como profesional</SesionTitle>
 
                     <SesionInput

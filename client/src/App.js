@@ -20,6 +20,7 @@ import Searched from "./nutricion/Searched";
 import Recipe from "./nutricion/Recipe";
 import FitnessHome from "./pages/FitnessHome";
 import NutricionHome from "./pages/NutricionHome";
+import Layout from "./components/Layout/Layout";
 
 import BlogHome from "./pages/BlogHome";
 
@@ -38,7 +39,6 @@ import NutritionPlanDetails from './fitness/nutrition/NutritionPlanDetails'
 import NutritionPlansList from './fitness/nutrition/NutritionPlansList'
 import Recetas from "./nutricion/Recetas";
 import RecipeDetails from "./nutricion/nutricionComponents/RecipeDetails";
-import LoginPage from "./pages/Sesion/LoginPage";
 import DetailsPages from "./Blog/details/DetailsPages";
 import EjerciciosHome from "./pages/EjerciciosHome";
 import Pie from "./home/common/Pie";
@@ -80,6 +80,16 @@ const LayoutInicio = () => {
   )
 }
 
+const LayoutPrincipal = () => {
+  return (
+    <>
+      <Layout>
+        <Outlet/>
+      </Layout>
+    </>
+  )
+}
+
 
 
 const router = createBrowserRouter([
@@ -111,7 +121,7 @@ const router = createBrowserRouter([
 
   {
     path: '/morhealth',
-    element: <Dashboard />,
+    element: <LayoutPrincipal />,
     children: [
 
       {
@@ -152,7 +162,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/morhealth/fitness/exercise/:id',
-        element: <ExerciseDetails />
+        element: <ExerciseDetail />
       },
       {
         path: '/morhealth/fitness/workouts',
@@ -193,6 +203,10 @@ const router = createBrowserRouter([
       {
         path: '/morhealth/ejercicios/ejercicio',
         element: <Ejercicios />
+      },
+      {
+        path: '/morhealth/ejercicios/ejercicio/:id',
+        element: <ExerciseDetail />
       },
       {
         path: '/morhealth/ejercicios/ejercicio/rutinas',

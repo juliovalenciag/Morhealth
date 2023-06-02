@@ -11,11 +11,13 @@ import DOMPurify from "dompurify";
 
 const DetailsPages = () => {
 
+  
   //Para la descripcion del post
   const [post, setPost] = useState({});
 
   //Para los posts relacionados
   const [posts, setPosts] = useState([]);
+
 
   const location = useLocation();
 
@@ -24,6 +26,8 @@ const DetailsPages = () => {
   const postId = location.pathname.split("/")[4];
 
   const { currentUser } = useContext(AuthContext);
+
+  
 
 
 
@@ -87,14 +91,14 @@ const DetailsPages = () => {
                   <AuthorImage src={post.userImg} alt="" />
                 }
 
-                <p>Autor: {post.username}</p>
+                <p>Autor: </p>
               </AuthorSection>
             </TitleAuthorContainer>
 
             <PublishButtonsContainer>
               <p>Publicado: {moment(post.date).fromNow()}</p>
 
-              {currentUser.username === post.username && (
+              
                 <Buttons>
                   <Button>
                     <Link to='/morhealth/blog/write?=2' state={post}>
@@ -105,7 +109,7 @@ const DetailsPages = () => {
                     <AiOutlineDelete onClick={handleDelete} />
                   </Button>
                 </Buttons>
-              )}
+              
             </PublishButtonsContainer>
 
             <PostContent  >
@@ -230,7 +234,6 @@ const PostImg = styled.img`
   @media (max-width: 768px) {
     height: 300px;
   }
-}
 `;
 
 const Buttons = styled.div`

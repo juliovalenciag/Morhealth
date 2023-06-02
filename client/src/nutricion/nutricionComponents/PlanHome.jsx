@@ -13,38 +13,38 @@ const PlanHome = () => {
     const HistoryData = [
         {
             image: Nft1,
-            title: "Colorful Heaven",
-            owner: "Mark Benjamin",
-            price: 0.4,
-            time: "30s",
+            title: "Hipocalórica",
+            owner: "Mensual",
+            price: 1500,
+            time: "4d",
         },
         {
             image: Nft2,
-            title: "Abstract Colors",
-            owner: "Esthera Jackson",
-            price: 2.4,
-            time: "50m",
+            title: "Hipercalórica",
+            owner: "Mensual",
+            price: 3000,
+            time: "6d",
         },
         {
             image: Nft3,
-            title: "ETH AI Brain",
-            owner: "Nick Wilson",
-            price: 0.3,
-            time: "20s",
+            title: "Proteica",
+            owner: "Mensual",
+            price: 1500,
+            time: "6d",
         },
         {
             image: Nft4,
-            title: "Swipe Circles",
-            owner: " Peter Will",
-            price: 0.4,
-            time: "4h",
+            title: "Vegetariana",
+            owner: " Mensual",
+            price: 1500,
+            time: "6d",
         },
         {
             image: Nft5,
-            title: "Mesh Gradients",
-            owner: "Will Smith",
-            price: 0.4,
-            time: "30s",
+            title: "Detox",
+            owner: "Mensual",
+            price: 1500,
+            time: "7d",
         },
     
     ];
@@ -91,11 +91,11 @@ const PlanHome = () => {
                         </div>
                         <div className="ml-1 flex items-center text-sm font-bold text-navy-700 dark:text-white">
                             <p> { } </p>
-                            {data.price} <p className="ml-1">ETH</p>
+                            {data.price} <p className="ml-1">kcal</p>
                         </div>
                         <div className="ml-2 flex items-center text-sm font-normal text-gray-600 dark:text-white">
+                            <p className="ml-1">hace - </p>
                             <p>{data.time}</p>
-                            <p className="ml-1">ago</p>
                         </div>
                     </div>
                 </div>
